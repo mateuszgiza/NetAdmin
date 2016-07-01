@@ -1,8 +1,9 @@
 ## Customize the test machine
 machine:
-
   timezone:
     America/Los_Angeles # Set the timezone
+
+checkout:
 
 ## Customize dependencies
 dependencies:
@@ -11,5 +12,11 @@ dependencies:
     - sudo apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
     - sudo apt-get update
     - sudo apt-get install dotnet-dev-1.0.0-preview2-003121
+
+database:
+  override:
+  
+test:
+  override:
     - dotnet restore
     - dotnet build
