@@ -22,7 +22,7 @@ namespace AviloxCore.Controllers
             _issuesRepo.Add(issue);
             var result = _issuesRepo.CommitChanges();
 
-            return Json(new { status = "Added issue", result = result });
+            return Json(new { status = "Added issue", result = result, newIssue = issue });
         }
 
         public JsonResult AllIssues() 
