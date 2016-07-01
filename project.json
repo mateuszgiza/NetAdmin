@@ -48,15 +48,7 @@
   },
 
   "frameworks": {
-        "netcoreapp1.0": {
-            "imports": ["portable-net451+win8"],
-            "dependencies": {
-                "Microsoft.NETCore.App": {
-                    "type": "platform",
-                    "version": "1.0.0-*"
-                }
-            }
-        }
+        "netcoreapp1.0": { }
   },
 
   "scripts": {
