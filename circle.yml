@@ -3,8 +3,6 @@ machine:
   timezone:
     America/Los_Angeles # Set the timezone
 
-checkout:
-
 ## Customize dependencies
 dependencies:
   pre:
