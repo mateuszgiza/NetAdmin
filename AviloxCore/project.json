@@ -1,6 +1,6 @@
 {
   "version": "1.0.0-*",
-  
+
   "buildOptions": {
     "preserveCompilationContext": true,
     "emitEntryPoint": true,
@@ -36,7 +36,7 @@
     "Microsoft.Extensions.DependencyInjection": "1.0.0",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.0.0"
   },
-  
+
   "tools": {
     "Microsoft.EntityFrameworkCore.Tools": {
       "imports": [ "portable-net451+win8" ],
@@ -48,7 +48,7 @@
   },
 
   "frameworks": {
-        "netcoreapp1.0": { }
+    "netcoreapp1.0": { }
   },
 
   "scripts": {
