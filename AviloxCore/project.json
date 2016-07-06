@@ -43,7 +43,8 @@
       "version": "1.0.0-preview2-final"
     },
     "Microsoft.AspNetCore.Server.IISIntegration.Tools": {
-      "version": "1.0.0-preview2-final"
+      "version": "1.0.0-preview1-final",
+      "imports": "portable-net45+win8+dnxcore50"
     }
   },
 
