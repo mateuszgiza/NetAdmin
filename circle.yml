@@ -18,3 +18,9 @@ test:
   override:
     - dotnet restore
     - dotnet build src/AviloxCore
+
+deployment:
+  publish:
+    branch: publish
+    commands: 
+      - ./scripts/deploy_production.sh

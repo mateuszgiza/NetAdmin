@@ -13,7 +13,7 @@ namespace AviloxCore
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = @"Server=mssql4.webio.pl,2401;Database=vahaagn_aspnet;Uid=vahaagn_aspnet;Password=!@#derbyPhoenix3;";
+            var connection = @"Data Source=SQL5028.myASP.NET;Initial Catalog=DB_A09380_Vahaagn;User Id=DB_A09380_Vahaagn_admin;Password=1qazxcvB";
             services.AddDbContext<AviloxDbContext>(options => options.UseSqlServer(connection));
 
             services.AddTransient<IAviloxDbContext, AviloxDbContext>();
