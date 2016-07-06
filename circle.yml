@@ -17,4 +17,4 @@ database:
 test:
   override:
     - dotnet restore
-    - dotnet build AviloxCore
+    - dotnet build src/AviloxCore
