@@ -17,4 +17,10 @@ database:
 test:
   override:
     - dotnet restore
-    - dotnet build AviloxCore
+    - dotnet build src/AviloxCore
+
+deployment:
+  publish:
+    branch: publish
+    commands: 
+      - sh ./scripts/deploy_production.sh
