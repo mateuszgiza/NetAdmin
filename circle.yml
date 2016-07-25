@@ -1,15 +1,16 @@
 ## Customize the test machine
 machine:
   timezone:
-    America/Los_Angeles # Set the timezone
+    Europe/Warsaw # Set the timezone
 
 ## Customize dependencies
 dependencies:
+  cache_directories:
+    - /usr/share
+    - /usr/bin
+    - /etc
   pre:
-    - sudo sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet/ trusty main" > /etc/apt/sources.list.d/dotnetdev.list'
-    - sudo apt-key adv --keyserver apt-mo.trafficmanager.net --recv-keys 417A0893
-    - sudo apt-get update
-    - sudo apt-get install dotnet-dev-1.0.0-preview2-003121
+    - sh ./scripts/install_dependencies.sh
 
 database:
   override:
@@ -21,6 +22,6 @@ test:
 
 deployment:
   publish:
-    branch: publish
+    branch: pub_azure
     commands: 
       - sh ./scripts/deploy_production.sh

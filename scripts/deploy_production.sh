@@ -1,9 +1,34 @@
-dotnet publish src/AviloxCore -o $CIRCLE_ARTIFACTS
+# ------------------------------
+# DEPLOY SCRIPT
+# ------------------------------
+CURR_DIR=$(pwd) # save current working dir
 
-HOST='ftp.myasp.net'
-USER='vahaagn-001'
+# ------------------------------
+# AviloxCore deploy section
+# ------------------------------
+HOST='ftp://waws-prod-db3-033.ftp.azurewebsites.windows.net'
+USER='AviloxCore\vahaagn-pub'
 PASSWD='2zoltrixound'
-LOCALPATH=$CIRCLE_ARTIFACTS
-DIR='site1'
+LOCALPATH=$CIRCLE_ARTIFACTS/AviloxCore
+DIR='site/wwwroot'
 
-find $LOCALPATH -type f -exec curl -u $USER:$PASSWD --ftp-create-dirs -T $(cut -d/ -f3- <<< {}) ftp://$HOST/$DIR/$(cut -d/ -f3- <<< {}) \;
+cd $CURR_DIR
+mkdir -p $LOCALPATH
+dotnet publish src/AviloxCore -o $LOCALPATH
+cd $LOCALPATH
+lftp -c "open -u $USER,$PASSWD $HOST; set ssl:verify-certificate no; mirror --continue --only-newer --parallel=10 -R ./ /$DIR/"
+
+# ------------------------------
+# AviloxFront deploy section
+# ------------------------------
+HOST='ftp://waws-prod-db3-033.ftp.azurewebsites.windows.net'
+USER='Avilox\vahaagn-pub'
+PASSWD='2zoltrixound'
+LOCALPATH=$CIRCLE_ARTIFACTS/AviloxFront
+DIR='site/wwwroot'
+
+cd $CURR_DIR
+mkdir -p $LOCALPATH
+cp -R src/AviloxFront/. $LOCALPATH/
+cd $LOCALPATH
+lftp -c "open -u $USER,$PASSWD $HOST; set ssl:verify-certificate no; mirror --continue --only-newer --parallel=10 -R ./ /$DIR/"

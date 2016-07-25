@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using AviloxCore.DataAccess.Contexts;
 using AviloxCore.DataAccess.Repositories;
 using AviloxCore.DataAccess.Repositories.Interfaces;
@@ -11,9 +13,16 @@ namespace AviloxCore
 {
     public class Startup
     {
+        public static IDictionary ENV = Environment.GetEnvironmentVariables();
+
         public void ConfigureServices(IServiceCollection services)
-        {
-            var connection = @"Data Source=SQL5028.myASP.NET;Initial Catalog=DB_A09380_Vahaagn;User Id=DB_A09380_Vahaagn_admin;Password=1qazxcvB";
+        {            
+            var host = ENV["Avilox_DB_HOST"];
+            var catalog = ENV["Avilox_DB_CATALOG"];
+            var user = ENV["Avilox_DB_USER"];
+            var pass = ENV["Avilox_DB_PASS"];
+            var connection = $"Data Source={host};Initial Catalog={catalog};User Id={user};Password={pass}";
+
             services.AddDbContext<AviloxDbContext>(options => options.UseSqlServer(connection));
 
             services.AddTransient<IAviloxDbContext, AviloxDbContext>();

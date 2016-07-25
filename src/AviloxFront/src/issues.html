@@ -1,0 +1,16 @@
+<template>
+    <section>
+        <h2>${heading}</h2>
+        <div class="row" repeat.for="issue of issues">
+            <div class="col-sm-5 col-md-3">
+                ${issue.title}
+            </div>
+            <div class="col-sm-5 col-md-3">
+                ${issue.text}
+            </div>
+            <div class="col-sm-2 col-md-3">
+                ${issue.issueType}
+            </div>
+        </div>
+    </section>
+</template>
