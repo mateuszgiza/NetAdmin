@@ -1,5 +1,6 @@
 using AviloxCore.DataAccess.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace AviloxCore.DataAccess.Contexts
 {
@@ -8,5 +9,7 @@ namespace AviloxCore.DataAccess.Contexts
         DbSet<Issue> Issues { get; set; }
 
         int CommitChanges();
+        EntityEntry Entry(object entity);
+        EntityEntry<TEntity> Entry<TEntity>(TEntity entity) where TEntity: class;
     }
 }

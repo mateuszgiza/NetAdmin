@@ -4,20 +4,23 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AviloxCore.Controllers
 {
-    public class HomeController : Controller
+    public class IssuesController : Controller
     {
         private readonly IIssuesRepository _issuesRepo;
 
-        public HomeController(IIssuesRepository issuesRepository) 
+        public IssuesController(IIssuesRepository issuesRepository) 
         {
             _issuesRepo = issuesRepository;
         }
 
-        public IActionResult Index() => View();
+        public JsonResult All() 
+        {
+            var issues = _issuesRepo.GetAll();
 
-        public IActionResult NewIssue() => View();
+            return Json(new { issues = issues });
+        }
 
-        public JsonResult AddIssue(Issue issue)
+        public JsonResult Add(Issue issue)
         {
             _issuesRepo.Add(issue);
             var result = _issuesRepo.CommitChanges();
@@ -25,11 +28,11 @@ namespace AviloxCore.Controllers
             return Json(new { status = "Added issue", result = result, newIssue = issue });
         }
 
-        public JsonResult AllIssues() 
+        public JsonResult Update(Issue issue) 
         {
-            var issues = _issuesRepo.GetAll();
+            var result = _issuesRepo.Update(issue);
 
-            return Json(new { issues = issues });
+            return Json(new { result = result });
         }
     }
 }

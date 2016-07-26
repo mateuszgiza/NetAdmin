@@ -8,6 +8,7 @@ namespace AviloxCore.DataAccess.Repositories.Interfaces
         void Add(Issue issue);
         Issue GetById(int id);
         IEnumerable<Issue> GetAll();
+        bool Update(Issue issue);
 
         int CommitChanges();
     }
