@@ -12,25 +12,11 @@ export class App {
                 title: 'Welcome'
             },
             {
-                route: 'users',
-                name: 'users',
-                moduleId: './users',
-                nav: true,
-                title: 'Github Users'
-            },
-            {
                 route: 'issues',
                 name: 'issues',
                 moduleId: './issues',
                 nav: true,
                 title: 'Issues'
-            },
-            {
-                route: 'child-router',
-                name: 'child-router',
-                moduleId: './child-router',
-                nav: true,
-                title: 'Child Router'
             }
         ]);
 
