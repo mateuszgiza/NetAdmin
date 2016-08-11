@@ -3,7 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AviloxCore", "src\AviloxCore\AviloxCore.xproj", "{0F01F20F-705B-41E9-851C-9D0E556ACBFB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{49105443-B255-492A-9ED9-D8A3E22794E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E558C2E2-9CAD-473B-8D72-21A887CE2FDA}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Avilox.Core", "src\Avilox.Core\Avilox.Core.xproj", "{3AEB3E08-4628-4D93-AF72-092485E04240}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Avilox.Api", "src\Avilox.Api\Avilox.Api.xproj", "{8793F589-8C29-44AF-97A6-2F707CF9323D}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Avilox.Data", "src\Avilox.Data\Avilox.Data.xproj", "{05A31E24-1B9F-4A93-958E-44B0958571CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +22,25 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0F01F20F-705B-41E9-851C-9D0E556ACBFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0F01F20F-705B-41E9-851C-9D0E556ACBFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0F01F20F-705B-41E9-851C-9D0E556ACBFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0F01F20F-705B-41E9-851C-9D0E556ACBFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AEB3E08-4628-4D93-AF72-092485E04240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AEB3E08-4628-4D93-AF72-092485E04240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AEB3E08-4628-4D93-AF72-092485E04240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AEB3E08-4628-4D93-AF72-092485E04240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8793F589-8C29-44AF-97A6-2F707CF9323D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8793F589-8C29-44AF-97A6-2F707CF9323D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8793F589-8C29-44AF-97A6-2F707CF9323D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8793F589-8C29-44AF-97A6-2F707CF9323D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05A31E24-1B9F-4A93-958E-44B0958571CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05A31E24-1B9F-4A93-958E-44B0958571CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05A31E24-1B9F-4A93-958E-44B0958571CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05A31E24-1B9F-4A93-958E-44B0958571CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3AEB3E08-4628-4D93-AF72-092485E04240} = {49105443-B255-492A-9ED9-D8A3E22794E9}
+		{8793F589-8C29-44AF-97A6-2F707CF9323D} = {49105443-B255-492A-9ED9-D8A3E22794E9}
+		{05A31E24-1B9F-4A93-958E-44B0958571CF} = {49105443-B255-492A-9ED9-D8A3E22794E9}
 	EndGlobalSection
 EndGlobal

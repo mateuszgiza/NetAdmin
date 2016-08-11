@@ -18,7 +18,7 @@ database:
 test:
   override:
     - dotnet restore
-    - dotnet build src/AviloxCore
+    - dotnet build src/Avilox.Core
 
 deployment:
   publish:

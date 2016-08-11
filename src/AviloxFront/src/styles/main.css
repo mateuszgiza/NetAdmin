@@ -1,0 +1,63 @@
+h1, h2, h3, h4, h5,
+p, font, * {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1, h2, h3, h4, h5,
+p, font, label {
+    font-family: 'Open Sans', sans-serif;
+    color: lightgray;
+}
+
+.card-block > h4,
+.card-block > p {
+    color: #3c3f41;
+}
+
+body {
+    background-color: darkslategrey;
+}
+
+.splash {
+    text-align: center;
+    margin: 10% 0 0 0;
+    box-sizing: border-box;
+}
+
+.splash .message {
+    font-size: 72px;
+    line-height: 72px;
+    text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+}
+
+.splash .fa-spinner {
+    text-align: center;
+    display: inline-block;
+    font-size: 72px;
+    margin-top: 50px;
+    text-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+}
+
+.site-bg,
+.margin-top {
+    margin-top: 20px;
+}
+
+.site-bg,
+.pad-20 {
+    padding: 20px;
+}
+
+.site-bg,
+.round-corner-10 {
+    border-radius: 10px;
+}
+
+.site-bg,
+.dark-bg {
+    background-color: #373a3c;
+}
+
+.navbar {
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 15px;
+}

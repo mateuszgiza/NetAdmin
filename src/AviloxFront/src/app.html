@@ -1,11 +1,11 @@
 <template>
-  <require from="bootstrap/css/bootstrap.css"></require>
-  <require from="font-awesome/css/font-awesome.css"></require>
-  <require from="./nav-bar.html"></require>
-  
-  <nav-bar router.bind="router"></nav-bar>
+    <require from="./navbar"></require>
+    <navbar router.bind="router"></navbar>
 
-  <div class="page-host">
-    <router-view></router-view>
-  </div>
+    <div class="container m-t-3">
+        <div class="site-bg">
+            <router-view></router-view>
+        </div>
+    </div>
+
 </template>
