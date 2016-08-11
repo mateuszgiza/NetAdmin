@@ -3,5 +3,5 @@
  */
 
 export class Configuration {
-    public static apiUrl: string = "http://localhost:5000/";
+    public static apiUrl: string = "https://aviloxcore.azurewebsites.net/";
 }
