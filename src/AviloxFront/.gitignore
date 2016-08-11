@@ -1,2 +1,3 @@
-src/*.js
-jspm_packages/
+node_modules
+.idea
+.DS_STORE
