@@ -14,7 +14,7 @@ DIR='site/wwwroot'
 
 cd $CURR_DIR
 mkdir -p $LOCALPATH
-dotnet publish src/AviloxCore -o $LOCALPATH
+dotnet publish src/Avilox.Core -o $LOCALPATH
 cd $LOCALPATH
 lftp -c "open -u $USER,$PASSWD $HOST; set ssl:verify-certificate no; mirror --continue --only-newer --parallel=10 -R ./ /$DIR/"
 
