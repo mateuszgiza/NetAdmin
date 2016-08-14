@@ -23,11 +23,17 @@ export class Show {
     activate(params, routeConfig, $navigationInstruction) {
         this.issueId = params.id;
         
-        return this.http.fetch('Issues/' + this.issueId)
+        return this.http.fetch('issues/' + this.issueId)
             .then(response => response.json())
             .then(res => {
                 this.exist = res.exist;
                 this.issue = res.issue;
             });
+    }
+
+    delete(id: number): void {
+        this.http.fetch('issues/' + id, {
+            method: 'delete'
+        }).then(i => this.router.navigate("issues"));
     }
 }

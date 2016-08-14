@@ -39,6 +39,8 @@ namespace Avilox.Data.Repositories
 
         public bool Update(Issue issue)
         {
+            issue.ModificationCount++;
+
             _aviloxDb.Entry(issue).State = EntityState.Modified;
             var result = _aviloxDb.Issues.Update(issue);
 

@@ -1,10 +1,11 @@
 ﻿using System;
-using Avilox.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Avilox.Data.Contexts;
 
-namespace Avilox.Core.Migrations
+namespace Avilox.Data.Migrations
 {
     [DbContext(typeof(AviloxDbContext))]
     partial class AviloxDbContextModelSnapshot : ModelSnapshot
@@ -15,7 +16,7 @@ namespace Avilox.Core.Migrations
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("AviloxCore.DataAccess.Models.Issue", b =>
+            modelBuilder.Entity("Avilox.Data.Models.Issue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -23,6 +24,8 @@ namespace Avilox.Core.Migrations
                     b.Property<DateTime>("CreationDate");
 
                     b.Property<int>("IssueType");
+
+                    b.Property<int>("ModificationCount");
 
                     b.Property<DateTime?>("ModificationDate");
 

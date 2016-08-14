@@ -23,17 +23,6 @@ export class Index {
             .then(res => this.issues = res.issues);
     }
 
-    delete(id: number): void {
-        this.http.fetch('Issues/delete', {
-            method: 'post',
-            body: json(id)
-        });
-
-        this.issues = this.issues.filter(function (obj) {
-            return obj.id !== id;
-        })
-    }
-
     show(id: number): void {
         this.router.navigate("issues/" + id);
     }

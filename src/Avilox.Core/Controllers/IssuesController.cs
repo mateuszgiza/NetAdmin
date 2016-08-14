@@ -30,6 +30,7 @@ namespace Avilox.Core.Controllers
             return Json(new { exist = issue != null,  issue = issue });
         }
 
+        [HttpPost]
         public JsonResult Add([FromBody] Issue issue)
         {
             _issuesRepo.Add(issue);
@@ -38,6 +39,7 @@ namespace Avilox.Core.Controllers
             return Json(new { status = "Added issue", result = result, newIssue = issue });
         }
 
+        [HttpPut]
         public JsonResult Update([FromBody] Issue issue)
         {
             var result = _issuesRepo.Update(issue);
@@ -46,7 +48,8 @@ namespace Avilox.Core.Controllers
             return Json(new { result = result });
         }
 
-        public JsonResult Delete([FromBody] int id)
+        [HttpDelete("{id:int}")]
+        public JsonResult Delete(int id)
         {
             _issuesRepo.Delete(id);
             _issuesRepo.CommitChanges();

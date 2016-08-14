@@ -8,8 +8,9 @@ namespace Avilox.Data.Models
 
         public DateTime CreationDate { get; set; }
         public DateTime? ModificationDate { get; set; }
+        public int ModificationCount { get; set; }
 
-        public Entity() {
+        protected Entity() {
             CreationDate = DateTime.UtcNow;
         }
     }

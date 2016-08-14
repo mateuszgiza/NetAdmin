@@ -13,7 +13,7 @@ namespace Avilox.Core
 {
     public class Startup
     {
-        public static IDictionary ENV = Environment.GetEnvironmentVariables();
+        public static readonly IDictionary ENV = Environment.GetEnvironmentVariables();
 
         public void ConfigureServices(IServiceCollection services)
         {            

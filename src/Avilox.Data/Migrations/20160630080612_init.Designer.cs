@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Avilox.Core.Migrations
+namespace Avilox.Data.Migrations
 {
     [DbContext(typeof(AviloxDbContext))]
     [Migration("20160630080612_init")]

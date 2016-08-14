@@ -2,13 +2,24 @@
 
     <require from="./../helpers/converters"></require>
 
+    <span class="tag tag-default lower">
+        <i class="fa fa-fw fa-tag"></i>
+        ${issue.issueType | issueTypeFormat}
+    </span>
+
     <h4>
-        <span class="tag tag-pill tag-default capitalize">
-            <i class="fa fa-fw fa-tag"></i>
-            ${issue.issueType | issueTypeFormat}
-        </span>
          ${issue.title}
     </h4>
     <p>${issue.text}</p>
+
+    <p>Created at ${issue.creationDate}</p>
+    <p if.bind="issue.modificationDate != null">Modified at ${issue.modificationDate}</p>
+
+    <button class="btn btn-sm btn-warning" disabled>
+        <i class="fa fa-fw fa-pencil"></i> Edit
+    </button>
+    <button class="btn btn-sm btn-danger" click.trigger="delete(issue.id)">
+        <i class="fa fa-fw fa-trash"></i> Delete
+    </button>
 
 </template>
