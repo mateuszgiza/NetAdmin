@@ -1,0 +1,14 @@
+<template>
+
+    <require from="./../helpers/converters"></require>
+
+    <h4>
+        <span class="tag tag-pill tag-default capitalize">
+            <i class="fa fa-fw fa-tag"></i>
+            ${issue.issueType | issueTypeFormat}
+        </span>
+         ${issue.title}
+    </h4>
+    <p>${issue.text}</p>
+
+</template>

@@ -1,32 +1,24 @@
-import {inject} from 'aurelia-framework';
-import {HttpClient, json} from 'aurelia-fetch-client';
-import {Configuration} from './../configuration';
+import { inject } from 'aurelia-framework';
+import { Router } from 'aurelia-router';
+import { HttpClient, json } from 'aurelia-fetch-client';
+import { Configuration } from './../configuration';
 
-@inject(HttpClient)
+@inject(HttpClient, Router)
 export class Index {
     http: HttpClient;
+    router: Router;
 
     heading = "Issues";
     issues = [];
 
-    constructor(http) {
-        http.configure(cfg => {
-            cfg
-                .useStandardConfiguration()
-                .withBaseUrl(Configuration.apiUrl)
-                .withDefaults({
-                    headers: {
-                        'X-Requested-With': 'Fetch',
-                        'Access-Control-Allow-Origin': '*'
-                    }
-                })
-        });
-
+    constructor(http, router) {
         this.http = http;
+        this.router = router;
+        Configuration.Configure(this.http);
     }
 
     activate() {
-        return this.http.fetch('Issues/all')
+        return this.http.fetch('Issues')
             .then(response => response.json())
             .then(res => this.issues = res.issues);
     }
@@ -37,8 +29,12 @@ export class Index {
             body: json(id)
         });
 
-        this.issues = this.issues.filter(function( obj ) {
+        this.issues = this.issues.filter(function (obj) {
             return obj.id !== id;
         })
+    }
+
+    show(id: number): void {
+        this.router.navigate("issues/" + id);
     }
 }

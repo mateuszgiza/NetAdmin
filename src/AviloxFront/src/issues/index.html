@@ -20,8 +20,12 @@
                     <p class="card-text truncate">
                         ${issue.text}
                     </p>
+
                     <button class="btn btn-outline-danger btn-sm" click.trigger="$parent.delete(issue.id)">
                         <i class="fa fa-trash fa-fw"></i>Delete
+                    </button>
+                    <button class="btn btn-outline-info btn-sm" click.trigger="$parent.show(issue.id)">
+                        <i class="fa fa-info fa-fw"></i>Show
                     </button>
                 </div>
 

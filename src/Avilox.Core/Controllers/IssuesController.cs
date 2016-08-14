@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Avilox.Core.Controllers
 {
+    [Route("[controller]")]
     public class IssuesController : Controller
     {
         private readonly IIssuesRepository _issuesRepo;
@@ -13,11 +14,20 @@ namespace Avilox.Core.Controllers
             _issuesRepo = issuesRepository;
         }
 
-        public JsonResult All()
+        [HttpGet]
+        public JsonResult Get()
         {
             var issues = _issuesRepo.GetAll();
 
             return Json(new { issues = issues });
+        }
+
+        [HttpGet("{id:int}")]
+        public JsonResult Get(int id)
+        {
+            var issue = _issuesRepo.GetById(id);
+
+            return Json(new { exist = issue != null,  issue = issue });
         }
 
         public JsonResult Add([FromBody] Issue issue)
@@ -41,7 +51,7 @@ namespace Avilox.Core.Controllers
             _issuesRepo.Delete(id);
             _issuesRepo.CommitChanges();
 
-            return Json(new {result = "Deletion proceeded"});
+            return Json(new { result = "Deletion proceeded" });
         }
     }
 }
