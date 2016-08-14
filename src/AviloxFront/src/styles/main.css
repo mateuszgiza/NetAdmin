@@ -80,3 +80,15 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.upper {
+    text-transform: uppercase;
+}
+
+.lower {
+    text-transform: lowercase;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
