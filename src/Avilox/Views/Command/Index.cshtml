@@ -1,51 +1,85 @@
+@using Avilox.Extensions
 @model Avilox.Models.ConnectionModel
 
-<row>
-    <div class="col-md-8">
-        @using (Html.BeginForm("Index", "Command", FormMethod.Post))
+<div class="row">
+    <div class="col-md-12">
+        @using (Html.BeginForm("Index", "Command", FormMethod.Post, htmlAttributes: new { @class = "ui form" }))
         {
-            <p>Hostname: @Html.TextBoxFor(m => m.Hostname)</p>
-            <p>Database: @Html.TextBoxFor(m => m.Database)</p>
+            <div class="two fields">
+                <div class="field">
+                    @Html.LabelFor(m => m.Hostname)
+                    @Html.TextBoxFor(m => m.Hostname)
+                </div>
 
-            <p>Username: @Html.TextBoxFor(m => m.Username)</p>
-            <p>Password: @Html.TextBoxFor(m => m.Password)</p>
+                <div class="field">
+                    @Html.LabelFor(m => m.Database)
+                    @Html.TextBoxFor(m => m.Database)
+                </div>
+            </div>
 
-            <p>Query: @Html.TextAreaFor(m => m.Query)</p>
-            <button type="submit">submit</button>
+            <div class="two fields">
+                <div class="field">
+                    @Html.LabelFor(m => m.Username)
+                    @Html.TextBoxFor(m => m.Username)
+                </div>
+
+                <div class="field">
+                    @Html.LabelFor(m => m.Password)
+                    @Html.PasswordFor(m => m.Password)
+                </div>
+            </div>
+
+            <div class="field">
+                @Html.LabelFor(m => m.Query, new { @class = "col-sm-2 form-control" })
+                @Html.TextAreaFor(m => m.Query, new { @class = "form-control", rows = "5" })
+            </div>
+
+            <div class="field">
+                <button type="submit" class="ui primary button">Execute</button>
+            </div>
 
             <br />
 
-            <p>Error: </p>
-            <p>@Model.Error</p>
-
-            if (Model.Result != null && Model.Result.Any())
+            if (Model.Error.HasText())
             {
-                <table class="table table-striped table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <td>#</td>
-                        @foreach (var name in Model.FieldNames)
-                        {
-                            <td>@name</td>
-                        }
-                    </tr>
-                    </thead>
-
-                    <tbody>
-                    @{ var i = 1; }
-                    @foreach (var line in Model.Result)
-                    {
-                        <tr>
-                            <td>@i</td> @{ i++; }
-                            @foreach (var field in line)
-                            {
-                                <td>@field</td>
-                            }
-                        </tr>
-                    }
-                    </tbody>
-                </table>
+                <div class="alert alert-danger">
+                    <p>Error: </p>
+                    <p>@Model.Error</p>
+                </div>
             }
-        }
+
+            if (Model.Result.HaveItems())
+            {
+                <div class="ui grid">
+                    <div class="sixteen wide column overflow-hor">
+                        <table class="ui selectable sortable celled table">
+                            <thead>
+                            <tr>
+                                <th class="sorted descending">#</th>
+                                @foreach (var name in Model.FieldNames)
+                                {
+                                    <th>@name</th>
+                                }
+                            </tr>
+                            </thead>
+
+                            <tbody>
+                            @{ var i = 1; }
+                            @foreach (var line in Model.Result)
+                            {
+                                <tr>
+                                    <td>@i</td> @{ i++; }
+                                    @foreach (var field in line)
+                                    {
+                                        <td>@field</td>
+                                    }
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                                            }
+                                        }
     </div>
-</row>
+</div>
