@@ -2,16 +2,50 @@
 
 <row>
     <div class="col-md-8">
-        @using (Html.BeginForm("Index","Command", FormMethod.Post))
+        @using (Html.BeginForm("Index", "Command", FormMethod.Post))
         {
-            <p>HostName: @Html.TextBoxFor(m => m.HostName)</p>
+            <p>Hostname: @Html.TextBoxFor(m => m.Hostname)</p>
+            <p>Database: @Html.TextBoxFor(m => m.Database)</p>
+
             <p>Username: @Html.TextBoxFor(m => m.Username)</p>
             <p>Password: @Html.TextBoxFor(m => m.Password)</p>
-            
+
             <p>Query: @Html.TextAreaFor(m => m.Query)</p>
-            <br/>
-            <p>Result: @Model.Result</p>
             <button type="submit">submit</button>
+
+            <br />
+
+            <p>Error: </p>
+            <p>@Model.Error</p>
+
+            if (Model.Result != null && Model.Result.Any())
+            {
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <td>#</td>
+                        @foreach (var name in Model.FieldNames)
+                        {
+                            <td>@name</td>
+                        }
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    @{ var i = 1; }
+                    @foreach (var line in Model.Result)
+                    {
+                        <tr>
+                            <td>@i</td> @{ i++; }
+                            @foreach (var field in line)
+                            {
+                                <td>@field</td>
+                            }
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            }
         }
     </div>
 </row>

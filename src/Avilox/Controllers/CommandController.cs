@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using Avilox.Models;
@@ -8,19 +10,20 @@ namespace Avilox.Controllers
 {
     public class CommandController : Controller
     {
-        private const string CONNECTION_FORMAT = "Data Source={0};Initial Catalog={3};User ID={1};Password={2};";
+        private const string ConnectionFormat = "Data Source={0};Initial Catalog={3};User ID={1};Password={2};";
 
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new ConnectionModel { Result = "Fill boxes" };
+            var model = new ConnectionModel { Error = "Fill boxes" };
             return View(model);
         }
 
         [HttpPost]
         public IActionResult Index(ConnectionModel connection)
         {
-            string connectionString = string.Format(CONNECTION_FORMAT, connection.HostName, connection.Username, connection.Password, connection.Database);
+            var connectionString = string.Format(ConnectionFormat, connection.Hostname, connection.Username,
+                connection.Password, connection.Database);
 
             try 
             {
@@ -33,34 +36,51 @@ namespace Avilox.Controllers
 
                     var reader = cmd.ExecuteReader();
 
-                    bool first = true;
-                    var lines = new StringBuilder(10);
-                    while (reader.Read())
-                    {
-                        string line = string.Empty;
-
-                        if (first) {
-                            for (int i=0; i <reader.FieldCount; i++) {
-                                line += reader.GetName(i) + "\t";
-                            }
-                        }
-                        lines.Append(line + "<br/>");
-                        line = string.Empty;
-
-                        for(int i=0; i < reader.FieldCount; i++) {
-                            line += reader.GetValue(i) + "\t";
-                        }
-                        lines.Append(line + "<br/>");
-                    }
-                    connection.Result = lines.ToString();
+                    var table = ConvertToTableCollection(reader);
+                    connection.FieldNames = table.Item1;
+                    connection.Result = table.Item2;
                 }
             }
             catch(Exception e)
             {
-                connection.Result = e.ToString();
+                connection.Error = e.ToString();
             }
 
             return View(connection);
+        }
+
+        private static Tuple<IEnumerable<string>, IEnumerable<IEnumerable<string>>> ConvertToTableCollection(IDataReader reader)
+        {
+            var collection = new List<IEnumerable<string>>(10);
+            var names = ReadFieldNames(reader);
+            
+            while (reader.Read())
+            {
+                var fields = new List<string>(10);
+
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var line = reader.GetValue(i).ToString();
+                    fields.Add(line);
+                }
+                
+                collection.Add(fields);
+            }
+
+            var tuple = new Tuple<IEnumerable<string>, IEnumerable<IEnumerable<string>>>(names, collection);
+            return tuple;
+        }
+
+        private static IEnumerable<string> ReadFieldNames(IDataRecord reader)
+        {
+            var names = new List<string>(10);
+            
+            for (var i = 0; i < reader.FieldCount; i++)
+            {
+                names.Add(reader.GetName(i));
+            }
+
+            return names;
         }
     }
 }
