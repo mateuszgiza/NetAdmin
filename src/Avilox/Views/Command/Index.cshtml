@@ -1,0 +1,17 @@
+@model Avilox.Models.ConnectionModel
+
+<row>
+    <div class="col-md-8">
+        @using (Html.BeginForm("Index","Command", FormMethod.Post))
+        {
+            <p>HostName: @Html.TextBoxFor(m => m.HostName)</p>
+            <p>Username: @Html.TextBoxFor(m => m.Username)</p>
+            <p>Password: @Html.TextBoxFor(m => m.Password)</p>
+            
+            <p>Query: @Html.TextAreaFor(m => m.Query)</p>
+            <br/>
+            <p>Result: @Model.Result</p>
+            <button type="submit">submit</button>
+        }
+    </div>
+</row>
