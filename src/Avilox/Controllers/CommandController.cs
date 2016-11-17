@@ -1,5 +1,6 @@
 using System;
 using System.Data.SqlClient;
+using System.Text;
 using Avilox.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +30,29 @@ namespace Avilox.Controllers
                     cmd.CommandText = connection.Query;
 
                     conn.Open();
-                    connection.Result = cmd.ExecuteReader().ToString();
+
+                    var reader = cmd.ExecuteReader();
+
+                    bool first = true;
+                    var lines = new StringBuilder(10);
+                    while (reader.Read())
+                    {
+                        string line = string.Empty;
+
+                        if (first) {
+                            for (int i=0; i <reader.FieldCount; i++) {
+                                line += reader.GetName(i) + "\t";
+                            }
+                        }
+                        lines.Append(line + "<br/>");
+                        line = string.Empty;
+
+                        for(int i=0; i < reader.FieldCount; i++) {
+                            line += reader.GetValue(i) + "\t";
+                        }
+                        lines.Append(line + "<br/>");
+                    }
+                    connection.Result = lines.ToString();
                 }
             }
             catch(Exception e)
