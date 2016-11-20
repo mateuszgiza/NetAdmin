@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Avilox.Models
+namespace NetAdmin.Models
 {
     public class ConnectionModel
     {

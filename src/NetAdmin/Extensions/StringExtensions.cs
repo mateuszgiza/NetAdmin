@@ -1,4 +1,4 @@
-﻿namespace Avilox.Extensions
+﻿namespace NetAdmin.Extensions
 {
     public static class StringExtensions
     {

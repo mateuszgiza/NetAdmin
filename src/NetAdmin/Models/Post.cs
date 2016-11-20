@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Avilox.Models
+namespace NetAdmin.Models
 {
     public class Post
     {

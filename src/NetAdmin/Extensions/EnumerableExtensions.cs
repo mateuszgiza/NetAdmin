@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Avilox.Extensions
+namespace NetAdmin.Extensions
 {
     public static class EnumerableExtensions
     {
