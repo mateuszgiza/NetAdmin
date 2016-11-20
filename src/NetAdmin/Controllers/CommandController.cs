@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
+using NetAdmin.Extensions;
 using NetAdmin.Models;
 
 namespace NetAdmin.Controllers
@@ -14,17 +15,22 @@ namespace NetAdmin.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new ConnectionModel { Error = "Fill boxes" };
+            var model = new ConnectionModel();
             return View(model);
         }
 
         [HttpPost]
-        public IActionResult Index(ConnectionModel connection)
+        public PartialViewResult GetTableData(ConnectionModel connection)
         {
+            if (!Request.IsAjaxRequest())
+                return null;
+
             var connectionString = string.Format(ConnectionFormat, connection.Hostname, connection.Username,
                 connection.Password, connection.Database);
 
-            try 
+            var tableDataResponse = new TableDataModel();
+
+            try
             {
                 using (var conn = new SqlConnection(connectionString))
                 {
@@ -36,16 +42,21 @@ namespace NetAdmin.Controllers
                     var reader = cmd.ExecuteReader();
 
                     var table = ConvertToTableCollection(reader);
-                    connection.FieldNames = table.Item1;
-                    connection.Result = table.Item2;
+                    tableDataResponse.FieldNames = table.Item1;
+                    tableDataResponse.Result = table.Item2;
+                    tableDataResponse.RowsAffected = reader.RecordsAffected;
                 }
+            }
+            catch (SqlException e)
+            {
+                tableDataResponse.Error = e.Message;
             }
             catch(Exception e)
             {
-                connection.Error = e.ToString();
+                tableDataResponse.Error = e.ToString();
             }
 
-            return View(connection);
+            return PartialView("Partials/GetTableData", tableDataResponse);
         }
 
         private static Tuple<IEnumerable<string>, IEnumerable<IEnumerable<string>>> ConvertToTableCollection(IDataReader reader)

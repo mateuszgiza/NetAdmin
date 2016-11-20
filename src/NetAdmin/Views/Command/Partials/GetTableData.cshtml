@@ -1,0 +1,49 @@
+﻿@using System.Threading.Tasks
+@using NetAdmin.Extensions
+@model NetAdmin.Models.TableDataModel
+
+@if (Model.Error.HasText())
+{
+<div class="ui negative message transition">
+    <div class="header">Error</div>
+    <p>@Model.Error</p>
+</div>
+}
+
+@if (Model.Result.HaveItems())
+{
+<div class="overflow-hor">
+    <table class="ui selectable sortable celled table">
+        <thead>
+        <tr>
+            <th class="sorted descending">#</th>
+            @foreach (var name in Model.FieldNames)
+            {
+                <th>@name</th>
+            }
+        </tr>
+        </thead>
+
+        <tbody>
+        @{ var i = 1; }
+        @foreach (var line in Model.Result)
+        {
+            <tr>
+                <td>@i</td> @{ i++; }
+                @foreach (var field in line)
+                {
+                    <td>@field</td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+}
+
+@if (@Model.RowsAffected > 0)
+{
+    <div class="ui tiny message">
+        @Model.RowsAffected rows affected.
+    </div>
+}

@@ -1,11 +1,18 @@
 @using System.Threading.Tasks
-@using NetAdmin.Extensions
 @model NetAdmin.Models.ConnectionModel
 
 <div class="row">
     <div class="col-md-12">
-        @using (Html.BeginForm("Index", "Command", FormMethod.Post, htmlAttributes: new {@class = "ui form"}))
-        {
+        <form asp-controller="Command" 
+              asp-action="GetTableData" 
+              data-ajax="true" 
+              data-ajax-method="POST" 
+              data-ajax-mode="replace" 
+              data-ajax-update="#tableData"
+              data-ajax-loading="#loading"
+              data-ajax-loading-duration="500"
+              class="ui form">
+
             <div class="two fields">
                 <div class="field">
                     @Html.LabelFor(m => m.Hostname)
@@ -37,48 +44,16 @@
 
             <div class="field">
                 <button type="submit" class="ui primary button">Execute</button>
+                <span id="loading" style="display: none">
+                    Executing...
+                </span>
             </div>
 
             <br/>
+        </form>
+        
+        <div id="tableData">
+        </div>
 
-            if (Model.Error.HasText())
-            {
-                <div class="alert alert-danger">
-                    <p>Error: </p>
-                    <p>@Model.Error</p>
-                </div>
-            }
-
-            if (Model.Result.HaveItems())
-            {
-                <div class="overflow-hor">
-                    <table class="ui selectable sortable celled table">
-                        <thead>
-                        <tr>
-                            <th class="sorted descending">#</th>
-                            @foreach (var name in Model.FieldNames)
-                            {
-                                <th>@name</th>
-                            }
-                        </tr>
-                        </thead>
-
-                        <tbody>
-                        @{ var i = 1; }
-                        @foreach (var line in Model.Result)
-                        {
-                            <tr>
-                                <td>@i</td> @{ i++; }
-                                @foreach (var field in line)
-                                {
-                                    <td>@field</td>
-                                }
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-                </div>
-            }
-        }
     </div>
 </div>
