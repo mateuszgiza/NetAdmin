@@ -1,16 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.25914.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{26E7F9CC-D486-466E-9FBF-30E73655B389}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5DDFD501-8804-4900-AB9C-7798C99C18D2}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
-EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "NetAdmin", "src\NetAdmin\NetAdmin.xproj", "{77D8D292-73EA-41A5-85CE-E41F2D193455}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetAdmin", "src\NetAdmin\NetAdmin.csproj", "{77D8D292-73EA-41A5-85CE-E41F2D193455}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,8 +15,8 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{77D8D292-73EA-41A5-85CE-E41F2D193455}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77D8D292-73EA-41A5-85CE-E41F2D193455}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{77D8D292-73EA-41A5-85CE-E41F2D193455}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{77D8D292-73EA-41A5-85CE-E41F2D193455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77D8D292-73EA-41A5-85CE-E41F2D193455}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D8D292-73EA-41A5-85CE-E41F2D193455}.Release|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
