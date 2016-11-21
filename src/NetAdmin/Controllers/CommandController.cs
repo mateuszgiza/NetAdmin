@@ -59,6 +59,16 @@ namespace NetAdmin.Controllers
             return PartialView("Partials/GetTableData", tableDataResponse);
         }
 
+        public IActionResult GetDatabasesMenu()
+        {
+            return ViewComponent("DatabaseMenu");
+        }
+
+        public IActionResult GetTablesMenu()
+        {
+            return ViewComponent("TableMenu");
+        }
+
         private static Tuple<IEnumerable<string>, IEnumerable<IEnumerable<string>>> ConvertToTableCollection(IDataReader reader)
         {
             var collection = new List<IEnumerable<string>>(10);

@@ -1,0 +1,9 @@
+@model IEnumerable<string>
+
+    <div class="ui list">
+        @foreach (var table in Model) {
+        <div class="item">
+            <i class="table icon"></i> @table
+        </div>
+        }
+    </div>

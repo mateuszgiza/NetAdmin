@@ -7,3 +7,7 @@
     overflow-x: scroll;
     overflow-y: hidden;
 }
+
+.ui.vertical.menu .item > i.icon {
+  float: left;
+}
