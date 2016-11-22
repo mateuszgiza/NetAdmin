@@ -1,4 +1,5 @@
-@using System.Threading.Tasks @model NetAdmin.Models.ConnectionModel
+@using System.Threading.Tasks 
+@model NetAdmin.Models.ConnectionModel
 
 <div class="ui left fixed inverted vertical menu">
     <div class="item">
@@ -9,7 +10,7 @@
     </div>
 </div>
 
-<div class="row">
+<div class="row pusher">
     <div class="col-md-12">
         <form asp-controller="Command" asp-action="GetTableData" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace"
             data-ajax-update="#tableData" data-ajax-loading="#loading" data-ajax-loading-duration="500" class="ui form">
