@@ -1,9 +1,11 @@
 ﻿using NetAdmin.Domain.Responses;
+using System.Threading.Tasks;
 
 namespace NetAdmin.Domain.Services.Interfaces
 {
     public interface ICommandService
     {
-        DatabaseListResponse GetDatabases();
+        Task<DatabaseListResponse> GetDatabasesAsync();
+        Task<TableListResponse> GetTablesAsync();
     }
 }

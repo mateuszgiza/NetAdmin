@@ -1,16 +1,23 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using NetAdmin.Domain.Services.Interfaces;
 
 namespace NetModel.ViewComponents 
 {
     public class TableMenuViewComponent : ViewComponent
     {
+        private readonly ICommandService _commandService;
+
+        public TableMenuViewComponent(ICommandService commandService)
+        {
+            _commandService = commandService;
+        }
+
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            // TODO: Implement getting tables from the real SQL Server
-            var databases = new[] { "Hehe Table 1", "Table 2", "Table 3", "Table 4", "Table 5" };
+            var tableListResponse = await _commandService.GetTablesAsync();
             
-            return View("~/Views/Command/Partials/TableMenuViewComponent.cshtml", databases);
+            return View("~/Views/Command/Partials/TableMenuViewComponent.cshtml", tableListResponse);
         }
     }
 }

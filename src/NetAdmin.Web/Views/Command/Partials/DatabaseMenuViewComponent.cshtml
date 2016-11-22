@@ -1,10 +1,10 @@
-@model IEnumerable<string>
+@model NetAdmin.Domain.Responses.DatabaseListResponse
 @{ int i = 0; }
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
     <div class="ui inverted accordion">
-        @foreach (var database in Model) {
+        @foreach (var database in Model.Databases) {
         <div class="title" id="db-@i">
             <i class="database icon"></i> @database
         </div>
