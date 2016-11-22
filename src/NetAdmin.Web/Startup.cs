@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using NetAdmin.Domain.Services;
+using NetAdmin.Domain.Services.Interfaces;
 
 namespace NetAdmin
 {
@@ -31,6 +33,7 @@ namespace NetAdmin
         {
             // Add framework services.
             //services.AddApplicationInsightsTelemetry(Configuration);
+            services.AddTransient<ICommandService, CommandService>();
 
             services.AddMvc();
         }

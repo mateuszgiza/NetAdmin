@@ -1,4 +1,4 @@
-﻿namespace NetAdmin.Extensions
+﻿namespace NetAdmin.Helpers.Extensions
 {
     public static class StringExtensions
     {

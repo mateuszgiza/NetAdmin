@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
-using NetAdmin.Extensions;
-using NetAdmin.Models;
+using NetAdmin.Helpers.Extensions;
+using NetAdmin.Domain.Models;
+using NetAdmin.Domain.Services.Interfaces;
 
-namespace NetAdmin.Controllers
+namespace NetAdmin.Web.Controllers
 {
     public class CommandController : Controller
     {
         private const string ConnectionFormat = "Data Source={0};Initial Catalog={3};User ID={1};Password={2};";
+
+        private ICommandService _commandService;
+
+        public CommandController(ICommandService commandService)
+        {
+            _commandService = commandService;
+        }
 
         [HttpGet]
         public IActionResult Index()
@@ -28,7 +36,7 @@ namespace NetAdmin.Controllers
             var connectionString = string.Format(ConnectionFormat, connection.Hostname, connection.Username,
                 connection.Password, connection.Database);
 
-            var tableDataResponse = new TableDataModel();
+            var tableDataResponse = new TableData();
 
             try
             {

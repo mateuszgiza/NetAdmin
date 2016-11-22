@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace NetAdmin.Models
+namespace NetAdmin.Domain.Models
 {
-    public class TableDataModel
+    public class TableData
     {
         public IEnumerable<string> FieldNames { get; set; }
         public IEnumerable<IEnumerable<string>> Result { get; set; }

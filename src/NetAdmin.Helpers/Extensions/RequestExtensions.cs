@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Http;
 
-namespace NetAdmin.Extensions
+namespace NetAdmin.Helpers.Extensions
 {
     public static class RequestExtensions
     {

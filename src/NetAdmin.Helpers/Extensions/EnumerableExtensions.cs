@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace NetAdmin.Extensions
+namespace NetAdmin.Helpers.Extensions
 {
     public static class EnumerableExtensions
     {
