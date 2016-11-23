@@ -1,6 +1,6 @@
 namespace NetAdmin.Domain.Models
 {
-    public class ConnectionModel
+    public class ConnectionInfo
     {
         public string Hostname { get; set; }
         public int Port { get; set; }

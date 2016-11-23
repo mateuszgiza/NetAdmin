@@ -15,6 +15,9 @@
       <Version>1.0.0-alpha-20161104-2</Version>
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Data.SqlClient">
+      <Version>4.3.0</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Requests\" />

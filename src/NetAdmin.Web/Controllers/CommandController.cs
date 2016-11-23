@@ -23,12 +23,12 @@ namespace NetAdmin.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new ConnectionModel();
+            var model = new ConnectionInfo();
             return View(model);
         }
 
         [HttpPost]
-        public PartialViewResult GetTableData(ConnectionModel connection)
+        public PartialViewResult GetTableData(ConnectionInfo connection)
         {
             if (!Request.IsAjaxRequest())
                 return null;
