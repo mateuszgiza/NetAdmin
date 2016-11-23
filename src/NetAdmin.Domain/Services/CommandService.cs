@@ -1,11 +1,12 @@
-﻿using NetAdmin.Domain.Responses;
+﻿using NetAdmin.Common.Responses;
 using NetAdmin.Domain.Services.Interfaces;
 using System.Threading.Tasks;
 using System;
 using NetAdmin.Domain.Models;
 using System.Data.SqlClient;
-using NetAdmin.Domain.Enums;
+using NetAdmin.Common.Enums;
 using System.Collections.Generic;
+using NetAdmin.Helpers.Helpers;
 
 namespace NetAdmin.Domain.Services
 {
@@ -17,9 +18,7 @@ namespace NetAdmin.Domain.Services
         {
             const string databaseQuery = "SELECT name FROM sys.databases;";
 
-            var databaseResponse = new DatabaseListResponse();
-
-            try
+            return await SqlHelper.DoCommandOperationAsync<DatabaseListResponse>(response =>
             {
                 using (var conn = new SqlConnection(GetConnectionString(connectionInfo)))
                 {
@@ -31,28 +30,19 @@ namespace NetAdmin.Domain.Services
 
                     var databaseList = new List<string>();
 
-                    using (reader) {
-                        while(reader.Read()) {
+                    using (reader)
+                    {
+                        while (reader.Read())
+                        {
                             var name = reader.GetValue(0).ToString();
                             databaseList.Add(name);
                         }
                     }
 
-                    databaseResponse.Databases = databaseList;
+                    response.Databases = databaseList;
+                    response.State = ResponseState.Success;
                 }
-            }
-            catch (SqlException e)
-            {
-                databaseResponse.Message = e.Message;
-                databaseResponse.State = ResponseState.Error;
-            }
-            catch(Exception e)
-            {
-                databaseResponse.Message = e.ToString();
-                databaseResponse.State = ResponseState.Error;
-            }
-
-            return databaseResponse;
+            });
         }
 
         public async Task<TableListResponse> GetTablesAsync(ConnectionInfo connectionInfo)

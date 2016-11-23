@@ -1,4 +1,4 @@
-﻿namespace NetAdmin.Domain.Enums
+﻿namespace NetAdmin.Common.Enums
 {
     public enum ResponseState
     {

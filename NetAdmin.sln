@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAdmin.Domain", "src\NetA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAdmin.Helpers", "src\NetAdmin.Helpers\NetAdmin.Helpers.csproj", "{80FD38BD-179B-4C6F-8F47-7C16791FA15A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAdmin.Common", "src\NetAdmin.Common\NetAdmin.Common.csproj", "{3EB93910-D3A1-4742-B693-447D0775E650}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{80FD38BD-179B-4C6F-8F47-7C16791FA15A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80FD38BD-179B-4C6F-8F47-7C16791FA15A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80FD38BD-179B-4C6F-8F47-7C16791FA15A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EB93910-D3A1-4742-B693-447D0775E650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EB93910-D3A1-4742-B693-447D0775E650}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EB93910-D3A1-4742-B693-447D0775E650}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EB93910-D3A1-4742-B693-447D0775E650}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,5 +43,6 @@ Global
 		{77D8D292-73EA-41A5-85CE-E41F2D193455} = {26E7F9CC-D486-466E-9FBF-30E73655B389}
 		{4F8F1657-6139-4D52-AC84-ACF78D49A3A6} = {26E7F9CC-D486-466E-9FBF-30E73655B389}
 		{80FD38BD-179B-4C6F-8F47-7C16791FA15A} = {26E7F9CC-D486-466E-9FBF-30E73655B389}
+		{3EB93910-D3A1-4742-B693-447D0775E650} = {26E7F9CC-D486-466E-9FBF-30E73655B389}
 	EndGlobalSection
 EndGlobal

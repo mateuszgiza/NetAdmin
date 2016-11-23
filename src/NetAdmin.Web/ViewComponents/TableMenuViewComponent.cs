@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetAdmin.Domain.Services.Interfaces;
 using NetAdmin.Domain.Models;
-using NetAdmin.Domain.Responses;
+using NetAdmin.Common.Responses;
 using Microsoft.Extensions.Caching.Memory;
 using System.Linq;
 

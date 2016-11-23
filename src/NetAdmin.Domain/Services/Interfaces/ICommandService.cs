@@ -1,4 +1,4 @@
-﻿using NetAdmin.Domain.Responses;
+﻿using NetAdmin.Common.Responses;
 using System.Threading.Tasks;
 using NetAdmin.Domain.Models;
 

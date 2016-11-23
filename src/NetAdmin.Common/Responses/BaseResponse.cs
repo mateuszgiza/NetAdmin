@@ -1,6 +1,6 @@
-﻿using NetAdmin.Domain.Enums;
+﻿using NetAdmin.Common.Enums;
 
-namespace NetAdmin.Domain.Responses
+namespace NetAdmin.Common.Responses
 {
     public abstract class BaseResponse
     {
