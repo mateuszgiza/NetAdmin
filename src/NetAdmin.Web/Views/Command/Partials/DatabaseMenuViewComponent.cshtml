@@ -16,7 +16,7 @@
 
         <script>
         $("#db-@i").click(function(){
-        $('#tables-@i').load("/Command/GetTablesMenu");
+        $('#tables-@i').load("/Command/GetTablesMenu?database=@database");
     });
     @{ i++; }
         </script> 
