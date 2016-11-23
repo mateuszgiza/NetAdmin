@@ -1,24 +1,23 @@
-@model NetAdmin.Domain.Responses.DatabaseListResponse
+@model NetAdmin.Domain.Responses.DatabaseListResponse 
 @{ int i = 0; }
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
-    <div class="ui inverted accordion">
-        @foreach (var database in Model.Databases) {
-        <div class="title" id="db-@i">
-            <i class="database icon"></i> @database
+<div class="ui inverted accordion">
+    @foreach (var database in Model.Databases) {
+    <div class="title" id="db-@i">
+        <i class="database icon"></i> @database
+    </div>
+    <div class="content">
+        <div class="transition hidden" id="tables-@i">
+            @*@await Component.InvokeAsync("TableMenu")*@
         </div>
-        <div class="content">
-            <div class="transition hidden" id="tables-@i">
-                @*@await Component.InvokeAsync("TableMenu")*@
-            </div>
-        </div>
+    </div>
 
-        <script>
+    <script>
         $("#db-@i").click(function(){
         $('#tables-@i').load("/Command/GetTablesMenu?database=@database");
     });
     @{ i++; }
-        </script> 
-        }
-    </div>
+        </script> }
+</div>

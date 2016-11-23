@@ -4,6 +4,7 @@ using NetAdmin.Domain.Services.Interfaces;
 using NetAdmin.Domain.Models;
 using NetAdmin.Domain.Responses;
 using Microsoft.Extensions.Caching.Memory;
+using System.Linq;
 
 namespace NetModel.ViewComponents
 {
@@ -23,7 +24,8 @@ namespace NetModel.ViewComponents
             var conn = _memoryCache.Get("connection") as ConnectionInfo;
 
             if (conn == null) {
-                return View("~/Views/Command/Partials/DatabaseMenuViewComponent.cshtml", new DatabaseListResponse());
+                var emptyResponse = new DatabaseListResponse() { Databases = Enumerable.Empty<string>() };
+                return View("~/Views/Command/Partials/DatabaseMenuViewComponent.cshtml", emptyResponse);
             }
 
             var databaseListResponse = await _commandService.GetDatabasesAsync(conn);
