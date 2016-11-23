@@ -28,6 +28,7 @@ namespace NetModel.ViewComponents
                 return View("~/Views/Command/Partials/TableMenuViewComponent.cshtml", emptyResponse);
             }
 
+            conn.Database = database;
             var tableListResponse = await _commandService.GetTablesAsync(conn);
             
             return View("~/Views/Command/Partials/TableMenuViewComponent.cshtml", tableListResponse);

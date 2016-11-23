@@ -26,8 +26,13 @@ namespace NetAdmin.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var model = new ConnectionInfo();
-            return View(model);
+            var conn = _memoryCache.Get("connection") as ConnectionInfo;
+
+            if (conn == null) {
+                conn = new ConnectionInfo();
+            }
+            
+            return View(conn);
         }
 
         [HttpPost]
