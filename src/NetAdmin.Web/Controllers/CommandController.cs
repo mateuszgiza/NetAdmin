@@ -72,9 +72,9 @@ namespace NetAdmin.Web.Controllers
             return ViewComponent("DatabaseMenu");
         }
 
-        public IActionResult GetTablesMenu()
+        public IActionResult GetTablesMenu(string database)
         {
-            return ViewComponent("TableMenu");
+            return ViewComponent("TableMenu", database);
         }
 
         private static (IEnumerable<string> names, IEnumerable<IEnumerable<string>> rows) ConvertToTableCollection(IDataReader reader)

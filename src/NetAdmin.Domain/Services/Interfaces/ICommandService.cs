@@ -7,6 +7,6 @@ namespace NetAdmin.Domain.Services.Interfaces
     public interface ICommandService
     {
         Task<DatabaseListResponse> GetDatabasesAsync(ConnectionInfo connectionInfo);
-        Task<TableListResponse> GetTablesAsync();
+        Task<TableListResponse> GetTablesAsync(ConnectionInfo connectionInfo);
     }
 }

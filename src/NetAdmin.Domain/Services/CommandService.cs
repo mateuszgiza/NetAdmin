@@ -55,12 +55,44 @@ namespace NetAdmin.Domain.Services
             return databaseResponse;
         }
 
-        public async Task<TableListResponse> GetTablesAsync()
+        public async Task<TableListResponse> GetTablesAsync(ConnectionInfo connectionInfo)
         {
-            var tableResponse = new TableListResponse()
+            const string databaseQuery = "SELECT name FROM sys.tables;";
+
+            var tableResponse = new TableListResponse();
+
+            try
             {
-                Tables = await Task.FromResult(new[] { "Table 1", "Table 2", "Table 3" })
-            };
+                using (var conn = new SqlConnection(GetConnectionString(connectionInfo)))
+                {
+                    var cmd = conn.CreateCommand();
+                    cmd.CommandText = databaseQuery;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    var tableList = new List<string>();
+
+                    using (reader) {
+                        while(reader.Read()) {
+                            var name = reader.GetValue(0).ToString();
+                            tableList.Add(name);
+                        }
+                    }
+
+                    tableResponse.Tables = tableList;
+                }
+            }
+            catch (SqlException e)
+            {
+                tableResponse.Message = e.Message;
+                tableResponse.State = ResponseState.Error;
+            }
+            catch(Exception e)
+            {
+                tableResponse.Message = e.ToString();
+                tableResponse.State = ResponseState.Error;
+            }
 
             return tableResponse;
         }
