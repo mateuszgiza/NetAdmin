@@ -1,16 +1,7 @@
 @using System.Threading.Tasks 
 @model NetAdmin.Domain.Models.ConnectionInfo
 
-<div class="ui left fixed inverted vertical menu">
-    <div class="item">
-        NetAdmin
-    </div>
-    <div class="item" id="menu-databases">
-        @await Component.InvokeAsync("DatabaseMenu")
-    </div>
-</div>
-
-<div class="row pusher">
+<div class="row content">
     <div class="col-md-12">
         <form asp-controller="Command" asp-action="GetTableData" data-ajax="true" data-ajax-method="POST" data-ajax-mode="replace"
             data-ajax-update="#tableData" data-ajax-loading="#loading" data-ajax-loading-duration="500" class="ui form">

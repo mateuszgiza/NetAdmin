@@ -11,3 +11,8 @@
 .ui.vertical.menu .item > i.icon {
   float: left;
 }
+
+#content {
+    margin-left: 20px;
+    width: calc(100% - 200px);
+}

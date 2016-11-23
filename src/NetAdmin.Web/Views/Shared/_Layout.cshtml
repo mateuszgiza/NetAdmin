@@ -12,8 +12,18 @@
 </head>
 <body>
 
-    <div class="ui container">
+    <div class="ui left fixed inverted vertical visible sidebar menu">
+        <div class="item">
+            NetAdmin
+        </div>
+        <div class="item" id="menu-databases">
+            @await Component.InvokeAsync("DatabaseMenu")
+        </div>
+    </div>
+
+    <div class="pusher" id="content">
         @RenderBody()
+
         <hr />
         <footer>
             <p>&copy; 2016 - Avilox</p>
