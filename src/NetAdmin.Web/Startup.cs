@@ -35,6 +35,8 @@ namespace NetAdmin
             //services.AddApplicationInsightsTelemetry(Configuration);
             services.AddTransient<ICommandService, CommandService>();
 
+            services.AddMemoryCache();
+
             services.AddMvc();
         }
 

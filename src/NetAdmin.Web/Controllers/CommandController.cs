@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NetAdmin.Helpers.Extensions;
 using NetAdmin.Domain.Models;
 using NetAdmin.Domain.Services.Interfaces;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace NetAdmin.Web.Controllers
 {
@@ -13,10 +14,12 @@ namespace NetAdmin.Web.Controllers
     {
         private const string ConnectionFormat = "Data Source={0};Initial Catalog={3};User ID={1};Password={2};";
 
+        private IMemoryCache _memoryCache;
         private ICommandService _commandService;
 
-        public CommandController(ICommandService commandService)
+        public CommandController(IMemoryCache memoryCache, ICommandService commandService)
         {
+            _memoryCache = memoryCache;
             _commandService = commandService;
         }
 
@@ -32,6 +35,8 @@ namespace NetAdmin.Web.Controllers
         {
             if (!Request.IsAjaxRequest())
                 return null;
+
+            _memoryCache.Set("connection", connection, new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(30)));
 
             var connectionString = string.Format(ConnectionFormat, connection.Hostname, connection.Username,
                 connection.Password, connection.Database);

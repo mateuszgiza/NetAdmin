@@ -2,26 +2,29 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NetAdmin.Domain.Services.Interfaces;
 using NetAdmin.Domain.Models;
+using NetAdmin.Domain.Responses;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace NetModel.ViewComponents
 {
     public class DatabaseMenuViewComponent : ViewComponent
     {
+        private IMemoryCache _memoryCache;
         private ICommandService _commandService;
 
-        public DatabaseMenuViewComponent(ICommandService commandService)
+        public DatabaseMenuViewComponent(IMemoryCache memoryCache, ICommandService commandService)
         {
+            _memoryCache = memoryCache;
             _commandService = commandService;
         }
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var conn = new ConnectionInfo()
-            {
-                Hostname = "avilox.database.windows.net",
-                Username = "vahaagn",
-                Password = "123asd!@#"
-            };
+            var conn = _memoryCache.Get("connection") as ConnectionInfo;
+
+            if (conn == null) {
+                return View("~/Views/Command/Partials/DatabaseMenuViewComponent.cshtml", new DatabaseListResponse());
+            }
 
             var databaseListResponse = await _commandService.GetDatabasesAsync(conn);
 
