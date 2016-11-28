@@ -87,9 +87,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <DotNetCliToolReference Include="BundlerMinifier.Core">
-      <Version>2.2.301</Version>
-    </DotNetCliToolReference>
     <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools">
       <Version>1.1.0-preview4-final</Version>
     </DotNetCliToolReference>
