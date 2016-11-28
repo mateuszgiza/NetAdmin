@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetAdmin.Domain.Services;
 using NetAdmin.Domain.Services.Interfaces;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 
 namespace NetAdmin
 {
@@ -27,21 +30,27 @@ namespace NetAdmin
         }
 
         public IConfigurationRoot Configuration { get; }
+        public IContainer ApplicationContainer { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
             //services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddTransient<ICommandService, CommandService>();
-
             services.AddMemoryCache();
-
             services.AddMvc();
+
+            var builder = new ContainerBuilder();
+            builder.RegisterType<CommandService>().As<ICommandService>();
+
+            builder.Populate(services);
+            ApplicationContainer = builder.Build();
+
+            return new AutofacServiceProvider(ApplicationContainer);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -68,6 +77,8 @@ namespace NetAdmin
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }
     }
 }

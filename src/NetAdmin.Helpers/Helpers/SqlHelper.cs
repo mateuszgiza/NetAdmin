@@ -1,5 +1,6 @@
 ﻿using NetAdmin.Common.Enums;
 using NetAdmin.Common.Responses;
+using NetAdmin.Common.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -10,12 +11,16 @@ namespace NetAdmin.Helpers.Helpers
 {
     public static class SqlHelper
     {
-        public static Task<TResponse> DoCommandOperationAsync<TResponse>(Action<TResponse> operation) where TResponse : BaseResponse, new()
+        #region - Constants -
+        private const string ConnectionFormat = "Data Source={0};Initial Catalog={3};User ID={1};Password={2};";
+        #endregion
+
+        public static Task<TResponse> DoCommandOperationAsync<TResponse>(ConnectionInfo connectionInfo, string query, Action<TResponse, SqlDataReader> operation) where TResponse : BaseResponse, new()
         {
-            return Task.FromResult(DoCommandOperation(operation));
+            return Task.FromResult(DoCommandOperation(connectionInfo, query, operation));
         }
 
-        public static TResponse DoCommandOperation<TResponse>(ConnectionInfoAction<TResponse> operation) where TResponse : BaseResponse, new()
+        public static TResponse DoCommandOperation<TResponse>(ConnectionInfo connectionInfo, string query, Action<TResponse, SqlDataReader> operation) where TResponse : BaseResponse, new()
         {
             var response = new TResponse();
 
@@ -24,26 +29,16 @@ namespace NetAdmin.Helpers.Helpers
                 using (var conn = new SqlConnection(GetConnectionString(connectionInfo)))
                 {
                     var cmd = conn.CreateCommand();
-                    cmd.CommandText = databaseQuery;
+                    cmd.CommandText = query;
 
                     conn.Open();
                     var reader = cmd.ExecuteReader();
 
-                    var databaseList = new List<string>();
-
                     using (reader)
                     {
-                        while (reader.Read())
-                        {
-                            var name = reader.GetValue(0).ToString();
-                            databaseList.Add(name);
-                        }
+                        operation(response, reader);
                     }
-
-                    response.Databases = databaseList;
-                    response.State = ResponseState.Success;
                 }
-                operation(response);
             }
             catch(SqlException e)
             {
@@ -58,5 +53,15 @@ namespace NetAdmin.Helpers.Helpers
 
             return response;
         }
+
+        #region - Private methods -
+        private static string GetConnectionString(ConnectionInfo connectionInfo)
+        {
+            var connectionString = string.Format(ConnectionFormat,
+                connectionInfo.Hostname, connectionInfo.Username, connectionInfo.Password, connectionInfo.Database);
+
+            return connectionString;
+        }
+        #endregion
     }
 }

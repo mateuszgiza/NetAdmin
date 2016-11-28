@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using NetAdmin.Helpers.Extensions;
 using NetAdmin.Domain.Models;
 using NetAdmin.Domain.Services.Interfaces;
+using NetAdmin.Common.Models;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace NetAdmin.Web.Controllers

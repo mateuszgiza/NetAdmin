@@ -1,4 +1,4 @@
-namespace NetAdmin.Domain.Models
+namespace NetAdmin.Common.Models
 {
     public class ConnectionInfo
     {

@@ -1,6 +1,6 @@
 ﻿using NetAdmin.Common.Responses;
 using System.Threading.Tasks;
-using NetAdmin.Domain.Models;
+using NetAdmin.Common.Models;
 
 namespace NetAdmin.Domain.Services.Interfaces
 {
