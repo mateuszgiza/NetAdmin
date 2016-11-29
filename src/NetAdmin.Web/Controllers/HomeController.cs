@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace NetAdmin.Controllers
+namespace NetAdmin.Web
 {
     public class HomeController : Controller
     {

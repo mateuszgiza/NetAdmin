@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
-using NetAdmin.Helpers.Extensions;
-using NetAdmin.Domain.Models;
-using NetAdmin.Domain.Services.Interfaces;
-using NetAdmin.Common.Models;
+using NetAdmin.Application;
+using NetAdmin.Business;
+using NetAdmin.Infrastructure;
 using Microsoft.Extensions.Caching.Memory;
 
-namespace NetAdmin.Web.Controllers
+namespace NetAdmin.Web
 {
     public class CommandController : Controller
     {

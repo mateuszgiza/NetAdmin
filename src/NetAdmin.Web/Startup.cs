@@ -4,10 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using NetAdmin.Domain.Services;
-using NetAdmin.Domain.Services.Interfaces;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using NetAdmin.Application;
 
 namespace NetAdmin
 {
