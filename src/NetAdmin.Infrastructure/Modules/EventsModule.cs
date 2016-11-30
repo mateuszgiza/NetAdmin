@@ -15,8 +15,8 @@ namespace NetAdmin.Infrastructure
                 .Where(x => x.IsAssignableTo<IHandleEvent>())
                 .AsImplementedInterfaces();
 
-            builder.RegisterGeneric(typeof(AllEventsHandler<>))
-                .As(typeof(IHandleEvent<>));
+            // builder.RegisterGeneric(typeof(AllEventsHandler<>))
+            //     .As(typeof(IHandleEvent<>));
 
             builder.Register<Func<Type, IEnumerable<IHandleEvent>>>(c =>
             {
@@ -26,7 +26,7 @@ namespace NetAdmin.Infrastructure
                 {
                     var handlerType = typeof(IHandleEvent<>).MakeGenericType(t);
                     var handlersCollectionType = typeof(IEnumerable<>).MakeGenericType(handlerType);
-                    return (IEnumerable<IHandleEvent>)ctx.Resolve(handlersCollectionType);
+                    return (IEnumerable<IHandleEvent>) ctx.Resolve(handlersCollectionType);
                 };
             });
 

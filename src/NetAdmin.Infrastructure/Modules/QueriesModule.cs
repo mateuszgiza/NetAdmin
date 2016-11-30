@@ -1,30 +1,30 @@
-﻿using Autofac;
 using System;
+using Autofac;
 
 namespace NetAdmin.Infrastructure
 {
-    public class CommandsModule : Module
+    public class QueriesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
 
             builder.RegisterAssemblyTypes(ThisAssembly)
-                .Where(x => x.IsAssignableTo<IHandleCommand>())
+                .Where(x => x.IsAssignableTo<IHandleQuery>())
                 .AsImplementedInterfaces();
 
-            builder.Register<Func<Type, IHandleCommand>>(c =>
+            builder.Register<Func<Type, IHandleQuery>>(c => 
             {
                 var ctx = c.Resolve<IComponentContext>();
 
-                return t =>
+                return t => 
                 {
-                    var handlerType = typeof(IHandleCommand<>).MakeGenericType(t);
-                    return (IHandleCommand) ctx.Resolve(handlerType);
+                    var handlerType = typeof(IHandleQuery<>).MakeGenericType(t);
+                    return (IHandleQuery) ctx.Resolve(handlerType);
                 };
             });
 
-            builder.RegisterType<CommandBus>()
+            builder.RegisterType<QueryBus>()
                 .AsImplementedInterfaces();
         }
     }
