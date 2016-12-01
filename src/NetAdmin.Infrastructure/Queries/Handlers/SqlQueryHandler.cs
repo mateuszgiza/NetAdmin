@@ -17,7 +17,10 @@ namespace NetAdmin.Infrastructure
         {
             var result = new SqlQueryResult();
 
+            //_commandService.GetDatabasesAsync();
+            result.Data = "No elo data";
 
+            return result;
         }
     }
 }
