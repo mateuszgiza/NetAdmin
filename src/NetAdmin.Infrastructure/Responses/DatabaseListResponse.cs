@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace NetAdmin.Business
+namespace NetAdmin.Infrastructure
 {
     public class DatabaseListResponse : BaseResponse
     {

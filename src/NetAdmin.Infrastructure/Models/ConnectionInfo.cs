@@ -1,4 +1,4 @@
-namespace NetAdmin.Business
+namespace NetAdmin.Infrastructure
 {
     public class ConnectionInfo
     {
