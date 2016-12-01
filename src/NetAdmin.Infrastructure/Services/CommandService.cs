@@ -5,11 +5,11 @@ namespace NetAdmin.Infrastructure
 {
     public class CommandService : IService
     {
-        public async Task<DatabaseListResponse> GetDatabasesAsync(ConnectionInfo connectionInfo)
+        public GetDatabasesResponse GetDatabasesAsync(GetDatabasesRequest request)
         {
-            const string databaseQuery = "SELECT name FROM sys.databases;";
+            //const string databaseQuery = "SELECT name FROM sys.databases;";
 
-            return await SqlHelper.DoCommandOperationAsync<DatabaseListResponse>(connectionInfo, databaseQuery, (response, reader) =>
+            return SqlHelper.DoCommandOperation<GetDatabasesResponse>(request.Connection, request.Query, (response, reader) =>
             {
                 var databaseList = new List<string>();
 

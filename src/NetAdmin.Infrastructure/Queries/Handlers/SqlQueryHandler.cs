@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace NetAdmin.Infrastructure
+﻿namespace NetAdmin.Infrastructure
 {
     public class SqlQueryHandler : IHandleQuery<SqlQuery>
     {
@@ -17,8 +13,22 @@ namespace NetAdmin.Infrastructure
         {
             var result = new SqlQueryResult();
 
-            //_commandService.GetDatabasesAsync();
-            result.Data = "No elo data";
+            // TODO: handle mapping by AutoMapper or similar framework
+            var request = new GetDatabasesRequest
+            {
+                Connection = new ConnectionInfo
+                {
+                    Hostname = query.Hostname,
+                    Port = query.Port,
+                    Database = query.Database,
+                    Username = query.Username,
+                    Password = query.Password
+                },
+                Query = query.Query
+            };
+            
+            var response = _commandService.GetDatabasesAsync(request);
+            result.Data = string.Join(",", response.Databases);
 
             return result;
         }
