@@ -49,6 +49,44 @@ namespace NetAdmin.Infrastructure
             return response;
         }
 
+        public static TResponse DoQueryOperation<TRequest, TResponse>(TRequest request, Action<TRequest, TResponse, SqlDataReader> operation) 
+            where TRequest : class, IDbRequest 
+            where TResponse : IResponse, new()
+        {
+            var response = new TResponse();
+
+            try
+            {
+                using (var conn = new SqlConnection(GetConnectionString(request.Connection)))
+                {
+                    var cmd = conn.CreateCommand();
+                    cmd.CommandText = request.CommandText;
+
+                    conn.Open();
+                    var reader = cmd.ExecuteReader();
+
+                    using (reader)
+                    {
+                        operation(request, response, reader);
+                    }
+                }
+            }
+            catch (SqlException e)
+            {
+                // TODO: Add logging
+                //response.Message = e.Message;
+                //response.State = ResponseState.Error;
+            }
+            catch (Exception e)
+            {
+                // TODO: Add logging
+                //response.Message = e.ToString();
+                //response.State = ResponseState.Error;
+            }
+
+            return response;
+        }
+
         #region - Private methods -
         private static string GetConnectionString(ConnectionInfo connectionInfo)
         {

@@ -1,0 +1,3 @@
+[submodule "front/NetAdmin.Web"]
+	path = front/NetAdmin.Web
+	url = https://github.com/vahaagn/NetAdmin.Web.git

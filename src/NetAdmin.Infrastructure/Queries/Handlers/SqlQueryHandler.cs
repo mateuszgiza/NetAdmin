@@ -24,7 +24,7 @@
                     Username = query.Username,
                     Password = query.Password
                 },
-                Query = query.Query
+                //Query = query.Query
             };
             
             var response = _commandService.GetDatabasesAsync(request);

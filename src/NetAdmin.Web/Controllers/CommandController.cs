@@ -5,33 +5,30 @@ using System.Data.SqlClient;
 using Microsoft.AspNetCore.Mvc;
 using NetAdmin.Application;
 using NetAdmin.Infrastructure;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace NetAdmin.Web
 {
     public class CommandController : Controller
     {
-        private const string ConnectionFormat = "Data Source={0};Initial Catalog={3};User ID={1};Password={2};";
-
-        private IMemoryCache _memoryCache;
         private ICommandService _commandService;
 
-        public CommandController(IMemoryCache memoryCache, ICommandService commandService)
+        public CommandController(ICommandService commandService)
         {
-            _memoryCache = memoryCache;
             _commandService = commandService;
         }
 
-        [HttpGet]
-        public IActionResult Index()
+        [HttpPost]
+        public JsonResult GetDatabases([FromBody] ConnectionInfo connection)
         {
-            var conn = _memoryCache.Get("connection") as ConnectionInfo;
+            var result = _commandService.GetDatabases(connection);
+            return Json(new { databases = result.Databases });
+        }
 
-            if (conn == null) {
-                conn = new ConnectionInfo();
-            }
-            
-            return View(conn);
+        [HttpPost]
+        public JsonResult GetTables([FromBody] ConnectionInfo connection)
+        {
+            var result = _commandService.GetTables(connection, connection.Database);
+            return Json(new { tables = result.Tables });
         }
 
         [HttpPost]
@@ -39,20 +36,15 @@ namespace NetAdmin.Web
         {
             if (!Request.IsAjaxRequest())
                 return null;
-
-            _memoryCache.Set("connection", connection, new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(30)));
-
-            var connectionString = string.Format(ConnectionFormat, connection.Hostname, connection.Username,
-                connection.Password, connection.Database);
-
+            
             var tableDataResponse = new TableData();
 
             try
             {
-                using (var conn = new SqlConnection(connectionString))
+                using (var conn = new SqlConnection(""))
                 {
                     var cmd = conn.CreateCommand();
-                    cmd.CommandText = connection.Query;
+                    cmd.CommandText = "";// connection.Query;
 
                     conn.Open();
 
@@ -75,17 +67,7 @@ namespace NetAdmin.Web
 
             return PartialView("Partials/GetTableData", tableDataResponse);
         }
-
-        public IActionResult GetDatabasesMenu()
-        {
-            return ViewComponent("DatabaseMenu");
-        }
-
-        public IActionResult GetTablesMenu(string database)
-        {
-            return ViewComponent("TableMenu", new { database });
-        }
-
+        
         private static (IEnumerable<string> names, IEnumerable<IEnumerable<string>> rows) ConvertToTableCollection(IDataReader reader)
         {
             var rows = new List<IEnumerable<string>>(10);

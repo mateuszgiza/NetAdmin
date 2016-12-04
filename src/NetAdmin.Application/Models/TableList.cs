@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace NetAdmin.Application
 {
-    public class DatabaseList : IResponse
+    public class TableList : IResponse
     {
-        public IList<string> Databases { get; internal set; }
+        public IList<string> Tables { get; internal set; }
     }
 }

@@ -7,5 +7,8 @@ namespace NetAdmin.Application
     {
         Task<DatabaseListResponse> GetDatabasesAsync(ConnectionInfo connectionInfo);
         Task<TableListResponse> GetTablesAsync(ConnectionInfo connectionInfo);
+
+        DatabaseList GetDatabases(ConnectionInfo connection);
+        TableList GetTables(ConnectionInfo connection, string database);
     }
 }

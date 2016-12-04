@@ -41,6 +41,7 @@ namespace NetAdmin
 
             var builder = new ContainerBuilder();
             builder.RegisterType<CommandService>().As<ICommandService>();
+            builder.RegisterType<DatabaseRepository>().AsSelf();
 
             builder.Populate(services);
             ApplicationContainer = builder.Build();

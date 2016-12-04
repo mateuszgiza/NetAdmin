@@ -7,9 +7,9 @@ namespace NetAdmin.Infrastructure
     {
         public GetDatabasesResponse GetDatabasesAsync(GetDatabasesRequest request)
         {
-            //const string databaseQuery = "SELECT name FROM sys.databases;";
+            const string databaseQuery = "SELECT name FROM sys.databases;";
 
-            return SqlHelper.DoCommandOperation<GetDatabasesResponse>(request.Connection, request.Query, (response, reader) =>
+            return SqlHelper.DoCommandOperation<GetDatabasesResponse>(request.Connection, databaseQuery, (response, reader) =>
             {
                 var databaseList = new List<string>();
 
