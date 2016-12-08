@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using NetAdmin.Application;
+using NetAdmin.Web;
 
 namespace NetAdmin
 {
@@ -35,6 +36,12 @@ namespace NetAdmin
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+
+            services.AddIdentityServer()
+                .AddTemporarySigningCredential()
+                .AddInMemoryApiResources(Config.GetApiResources())
+                .AddInMemoryClients(Config.GetClients());
+
             //services.AddApplicationInsightsTelemetry(Configuration);
             services.AddMemoryCache();
             services.AddMvc();
@@ -70,6 +77,14 @@ namespace NetAdmin
             //app.UseApplicationInsightsExceptionTelemetry();
 
             app.UseStaticFiles();
+
+            //app.UseIdentityServer();
+            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            {
+                Authority = "http://localhost:5000",
+                AllowedScopes = { "api1" },
+                RequireHttpsMetadata = false
+            });
 
             app.UseMvc(routes =>
             {

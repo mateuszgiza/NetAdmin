@@ -17,27 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAdmin.Business", "src\Ne
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAdmin.Tests", "tests\NetAdmin.Tests\NetAdmin.Tests.csproj", "{982814B2-3572-4506-A0AF-BBADC7427476}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "front", "front", "{E15EBB20-C5EC-47F0-92A2-0A376357490E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAdmin.Auth", "src\NetAdmin.Auth\NetAdmin.Auth.csproj", "{27118791-C558-40FA-B300-C73BAB1D66E7}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "NetAdmin.Web(1)", "front\NetAdmin.Web\", "{60D21835-079F-4951-A446-43E78244D821}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_29857"
-		Debug.AspNetCompiler.PhysicalPath = "front\NetAdmin.Web\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_29857\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_29857"
-		Release.AspNetCompiler.PhysicalPath = "front\NetAdmin.Web\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_29857\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "29857"
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetAdmin.Auth.ConsoleTest", "src\NetAdmin.Auth.ConsoleTest\NetAdmin.Auth.ConsoleTest.csproj", "{940F8A60-9D55-482A-8A5C-6C67D11CB5EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,10 +47,14 @@ Global
 		{982814B2-3572-4506-A0AF-BBADC7427476}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{982814B2-3572-4506-A0AF-BBADC7427476}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{982814B2-3572-4506-A0AF-BBADC7427476}.Release|Any CPU.Build.0 = Release|Any CPU
-		{60D21835-079F-4951-A446-43E78244D821}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{60D21835-079F-4951-A446-43E78244D821}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{60D21835-079F-4951-A446-43E78244D821}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{60D21835-079F-4951-A446-43E78244D821}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{27118791-C558-40FA-B300-C73BAB1D66E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27118791-C558-40FA-B300-C73BAB1D66E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27118791-C558-40FA-B300-C73BAB1D66E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27118791-C558-40FA-B300-C73BAB1D66E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{940F8A60-9D55-482A-8A5C-6C67D11CB5EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{940F8A60-9D55-482A-8A5C-6C67D11CB5EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{940F8A60-9D55-482A-8A5C-6C67D11CB5EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{940F8A60-9D55-482A-8A5C-6C67D11CB5EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,6 +65,7 @@ Global
 		{80FD38BD-179B-4C6F-8F47-7C16791FA15A} = {26E7F9CC-D486-466E-9FBF-30E73655B389}
 		{3EB93910-D3A1-4742-B693-447D0775E650} = {26E7F9CC-D486-466E-9FBF-30E73655B389}
 		{982814B2-3572-4506-A0AF-BBADC7427476} = {DA37E1D0-3D0C-41F9-AA87-9B1827D7E51A}
-		{60D21835-079F-4951-A446-43E78244D821} = {E15EBB20-C5EC-47F0-92A2-0A376357490E}
+		{27118791-C558-40FA-B300-C73BAB1D66E7} = {26E7F9CC-D486-466E-9FBF-30E73655B389}
+		{940F8A60-9D55-482A-8A5C-6C67D11CB5EC} = {26E7F9CC-D486-466E-9FBF-30E73655B389}
 	EndGlobalSection
 EndGlobal
