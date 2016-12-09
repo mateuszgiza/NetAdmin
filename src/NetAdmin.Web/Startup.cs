@@ -78,7 +78,7 @@ namespace NetAdmin
 
             app.UseStaticFiles();
 
-            //app.UseIdentityServer();
+            app.UseIdentityServer();
             app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
             {
                 Authority = "http://localhost:5000",
