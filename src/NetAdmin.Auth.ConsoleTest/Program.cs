@@ -1,5 +1,7 @@
 ﻿using IdentityModel.Client;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Net.Http;
 
 class Program
 {
@@ -15,7 +17,7 @@ class Program
 
     public async void ExecuteAsync()
     {
-        var disco = await DiscoveryClient.GetAsync(@"http://localhost:5000");
+        var disco = await DiscoveryClient.GetAsync("http://localhost:5000");
         var tokenClient = new TokenClient(disco.TokenEndpoint, "client", "secret");
         var tokenResponse = await tokenClient.RequestClientCredentialsAsync("api1");
 
@@ -24,7 +26,28 @@ class Program
             Console.WriteLine(tokenResponse.Error);
             return;
         }
+        else
+        {
+            Send(tokenResponse);
+        }
 
         Console.WriteLine(tokenResponse.Json);
+    }
+
+    public async void Send(TokenResponse tokenResponse)
+    {
+        var client = new HttpClient();
+        client.SetBearerToken(tokenResponse.AccessToken);
+
+        var response = await client.GetAsync("http://localhost:5000/identity");
+        if (!response.IsSuccessStatusCode)
+        {
+            Console.WriteLine(response.StatusCode);
+        }
+        else
+        {
+            var content = response.Content.ReadAsStringAsync().Result;
+            Console.WriteLine(JArray.Parse(content));
+        }
     }
 }
