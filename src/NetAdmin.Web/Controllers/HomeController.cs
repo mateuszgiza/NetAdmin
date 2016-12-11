@@ -1,19 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace NetAdmin.Web
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public IActionResult Index()
         {
-            return View();
+            return new JsonResult(new { scope = "Index", text = "Elo xD" });
         }
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            return new JsonResult(new { scope = "About", text = "Elo xD" });
         }
 
         public IActionResult Contact()

@@ -8,6 +8,10 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using NetAdmin.Application;
 using NetAdmin.Web;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using NetAdmin.Auth;
+using Microsoft.Extensions.Options;
 
 namespace NetAdmin
 {
@@ -36,12 +40,7 @@ namespace NetAdmin
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
-
-            services.AddIdentityServer()
-                .AddTemporarySigningCredential()
-                .AddInMemoryApiResources(Config.GetApiResources())
-                .AddInMemoryClients(Config.GetClients());
-
+            
             //services.AddApplicationInsightsTelemetry(Configuration);
             services.AddMemoryCache();
             services.AddMvc();
@@ -63,7 +62,7 @@ namespace NetAdmin
             loggerFactory.AddDebug();
 
             //app.UseApplicationInsightsRequestTelemetry();
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -76,16 +75,17 @@ namespace NetAdmin
 
             //app.UseApplicationInsightsExceptionTelemetry();
 
-            app.UseStaticFiles();
-
-            app.UseIdentityServer();
-            app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+            var secretKey = "mysupersecret_secretkey!123";
+            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
+            var options = new TokenProviderOptions
             {
-                Authority = "http://localhost:5000",
-                AllowedScopes = { "api1" },
-                RequireHttpsMetadata = false
-            });
+                Audience = "ExampleAudience",
+                Issuer = "ExampleIssuer",
+                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
+            };
+            app.UseMiddleware<TokenProviderMiddleware>(Options.Create(options));
 
+            app.UseStaticFiles();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
