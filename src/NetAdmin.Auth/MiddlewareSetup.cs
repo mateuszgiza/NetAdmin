@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Net;
 using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -48,11 +51,23 @@ namespace NetAdmin.Auth
                 AutomaticChallenge = true,
                 AuthenticationScheme = AuthCookieScheme,
                 CookieName = AuthCookieName,
-                TicketDataFormat = new CustomJwtDataFormat(SecurityAlgorithms.HmacSha256, tokenValidationParameters)
+                TicketDataFormat = new CustomJwtDataFormat(SecurityAlgorithms.HmacSha256, tokenValidationParameters),
+                Events = new CookieAuthenticationEvents
+                {
+                    OnRedirectToLogin = CookieRedirectEvent(HttpStatusCode.Unauthorized),
+                    OnRedirectToAccessDenied = CookieRedirectEvent(HttpStatusCode.Forbidden)
+                }
             });
         }
 
         private static SecurityKey GetSigningKey()
             => new SymmetricSecurityKey(Encoding.ASCII.GetBytes(TokenSecret));
+
+        private static Func<CookieRedirectContext, Task> CookieRedirectEvent(HttpStatusCode statusCode)
+            => context =>
+            {
+                context.Response.StatusCode = (int) statusCode;
+                return Task.CompletedTask;
+            };
     }
 }
