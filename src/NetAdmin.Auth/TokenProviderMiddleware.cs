@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -32,7 +33,7 @@ namespace NetAdmin.Auth
                 return GenerateTokenAsync(context);
             }
 
-            context.Response.StatusCode = 400;
+            context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
             return context.Response.WriteAsync("Bad Request!");
         }
 
@@ -44,7 +45,7 @@ namespace NetAdmin.Auth
             var identity = await GetIdentity(username, password);
             if (identity == null)
             {
-                context.Response.StatusCode = 400;
+                context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
                 await context.Response.WriteAsync("Invalid username or password");
                 return;
             }
