@@ -7,13 +7,9 @@ using Microsoft.Extensions.Logging;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using NetAdmin.Application;
-using NetAdmin.Web;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using NetAdmin.Auth;
-using Microsoft.Extensions.Options;
 
-namespace NetAdmin
+namespace NetAdmin.Web
 {
     public class Startup
     {
@@ -39,8 +35,6 @@ namespace NetAdmin
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            
             //services.AddApplicationInsightsTelemetry(Configuration);
             services.AddMemoryCache();
             services.AddMvc();
@@ -74,16 +68,8 @@ namespace NetAdmin
             }
 
             //app.UseApplicationInsightsExceptionTelemetry();
-
-            var secretKey = "mysupersecret_secretkey!123";
-            var signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretKey));
-            var options = new TokenProviderOptions
-            {
-                Audience = "ExampleAudience",
-                Issuer = "ExampleIssuer",
-                SigningCredentials = new SigningCredentials(signingKey, SecurityAlgorithms.HmacSha256)
-            };
-            app.UseMiddleware<TokenProviderMiddleware>(Options.Create(options));
+            app.UseJwtMiddleware();
+            app.AddJwtCookieAuthentication();
 
             app.UseStaticFiles();
             app.UseMvc(routes =>

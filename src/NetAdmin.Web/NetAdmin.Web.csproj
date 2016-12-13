@@ -101,6 +101,7 @@
     </DotNetCliToolReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NetAdmin.Auth\NetAdmin.Auth.csproj" />
     <ProjectReference Include="..\NetAdmin.Business\NetAdmin.Business.csproj" />
     <ProjectReference Include="..\NetAdmin.Application\NetAdmin.Application.csproj" />
     <ProjectReference Include="..\NetAdmin.Infrastructure\NetAdmin.Infrastructure.csproj" />

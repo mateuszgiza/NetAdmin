@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetAdmin.Web.Extensions
+namespace NetAdmin.Auth
 {
     public static class DateTimeExtensions
     {

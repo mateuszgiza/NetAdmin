@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using NetAdmin.Web.Extensions;
 using Newtonsoft.Json;
 using System;
 using System.IdentityModel.Tokens.Jwt;
@@ -8,7 +7,7 @@ using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
-namespace NetAdmin.Web
+namespace NetAdmin.Auth
 {
     public class TokenProviderMiddleware
     {
@@ -23,22 +22,21 @@ namespace NetAdmin.Web
 
         public Task Invoke(HttpContext context)
         {
-            if (!context.Request.Path.Equals(_options.Path, StringComparison.Ordinal))
+            if (!context.Request.IsCorrectTokenPath(_options))
             {
                 return _next(context);
             }
 
-            if (!context.Request.Method.Equals("POST") ||
-                !context.Request.HasFormContentType)
+            if (context.Request.IsCorrectTokenRequest())
             {
-                context.Response.StatusCode = 400;
-                return context.Response.WriteAsync("Bad Request!");
+                return GenerateTokenAsync(context);
             }
 
-            return GenerateToken(context);
+            context.Response.StatusCode = 400;
+            return context.Response.WriteAsync("Bad Request!");
         }
 
-        private async Task GenerateToken(HttpContext context)
+        private async Task GenerateTokenAsync(HttpContext context)
         {
             var username = context.Request.Form["username"];
             var password = context.Request.Form["password"];
@@ -52,7 +50,7 @@ namespace NetAdmin.Web
             }
 
             var now = DateTime.UtcNow;
-            var claims = new Claim[]
+            var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Sub, username),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -81,14 +79,23 @@ namespace NetAdmin.Web
 
         private Task<ClaimsIdentity> GetIdentity(string username, string password)
         {
-            if (username == "admin" && password == "admin")
+            if (CheckCredentials(username, password) == false)
             {
-                var emptyClaims = new Claim[] { };
-                var genericIdentity = new GenericIdentity(username, "Token");
-                return Task.FromResult(new ClaimsIdentity(genericIdentity, emptyClaims));
+                return Task.FromResult<ClaimsIdentity>(null);
             }
 
-            return Task.FromResult<ClaimsIdentity>(null);
+            var emptyClaims = new Claim[] { };
+            var genericIdentity = new GenericIdentity(username, "Token");
+
+            return Task.FromResult(new ClaimsIdentity(genericIdentity, emptyClaims));
+        }
+
+        private bool CheckCredentials(string username, string password)
+        {
+            var userExists = username.Equals("admin", StringComparison.OrdinalIgnoreCase);
+            var correctPassword = password.Equals("admin", StringComparison.OrdinalIgnoreCase);
+
+            return userExists && correctPassword;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 using System;
 
-namespace NetAdmin.Web
+namespace NetAdmin.Auth
 {
     public class TokenProviderOptions
     {

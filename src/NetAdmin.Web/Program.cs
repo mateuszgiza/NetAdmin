@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace NetAdmin
+namespace NetAdmin.Web
 {
     public class Program
     {
