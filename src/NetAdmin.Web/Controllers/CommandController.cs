@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetAdmin.Application;
 using NetAdmin.Infrastructure;
@@ -84,7 +82,7 @@ namespace NetAdmin.Web
             using (var redis = _redisClientsManager.GetClient())
             {
                 var userdbs = redis.GetAllItemsFromList(accessKey)
-                    .Map(s => JsonConvert.DeserializeObject<UserDbConnection>(s));
+                    .Map(JsonConvert.DeserializeObject<UserDbConnection>);
 
                 return Json(userdbs);
             }
@@ -99,24 +97,24 @@ namespace NetAdmin.Web
             {
                 var db1 = new UserDbConnection
                 {
-                    Owner = name,
                     Host = "Host1@host1.com",
+                    Username = "user1",
                     Password = "pwd1_hashed"
                 };
                 redis.AddItemToList(accessKey, db1.ToJson());
                 
                 var db2 = new UserDbConnection
                 {
-                    Owner = name,
                     Host = "Host2@host2.com",
+                    Username = "user22",
                     Password = "pwd2_hashed"
                 };
                 redis.AddItemToList(accessKey, db2.ToJson());
 
                 var db3 = new UserDbConnection
                 {
-                    Owner = name,
                     Host = "Host3@host3.com",
+                    Username = "user333",
                     Password = "pwd3_hashed"
                 };
                 redis.AddItemToList(accessKey, db3.ToJson());
@@ -127,8 +125,9 @@ namespace NetAdmin.Web
 
         private class UserDbConnection
         {
-            public string Owner { get; set; }
             public string Host { get; set; }
+            public int Port { get; set; } = 6379;
+            public string Username { get; set; }
             public string Password { get; set; }
         }
 
