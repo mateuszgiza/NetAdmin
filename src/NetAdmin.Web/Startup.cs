@@ -8,11 +8,14 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using NetAdmin.Application;
 using NetAdmin.Auth;
+using ServiceStack.Redis;
 
 namespace NetAdmin.Web
 {
     public class Startup
     {
+        private const string RedisConnectionString = "localhost:6379";
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -43,6 +46,8 @@ namespace NetAdmin.Web
             var builder = new ContainerBuilder();
             builder.RegisterType<CommandService>().As<ICommandService>();
             builder.RegisterType<DatabaseRepository>().AsSelf();
+
+            builder.Register<IRedisClientsManager>(c => new RedisManagerPool(RedisConnectionString));
 
             builder.Populate(services);
             ApplicationContainer = builder.Build();

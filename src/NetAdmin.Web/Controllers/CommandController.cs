@@ -2,19 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NetAdmin.Application;
 using NetAdmin.Infrastructure;
+using Newtonsoft.Json;
+using ServiceStack;
+using ServiceStack.Redis;
 
 namespace NetAdmin.Web
 {
+    //[Authorize]
     public class CommandController : Controller
     {
-        private ICommandService _commandService;
+        private readonly ICommandService _commandService;
+        private readonly IRedisClientsManager _redisClientsManager;
 
-        public CommandController(ICommandService commandService)
+        public CommandController(ICommandService commandService, IRedisClientsManager redisClientsManager)
         {
             _commandService = commandService;
+            _redisClientsManager = redisClientsManager;
         }
 
         [HttpPost]
@@ -67,7 +75,63 @@ namespace NetAdmin.Web
 
             return PartialView("Partials/GetTableData", tableDataResponse);
         }
-        
+
+        [HttpGet]
+        public JsonResult GetConnections(string name)
+        {
+            string accessKey = $"userDbConnection:{name}";
+
+            using (var redis = _redisClientsManager.GetClient())
+            {
+                var userdbs = redis.GetAllItemsFromList(accessKey)
+                    .Map(s => JsonConvert.DeserializeObject<UserDbConnection>(s));
+
+                return Json(userdbs);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult Fill(string name)
+        {
+            string accessKey = $"userDbConnection:{name}";
+
+            using (var redis = _redisClientsManager.GetClient())
+            {
+                var db1 = new UserDbConnection
+                {
+                    Owner = name,
+                    Host = "Host1@host1.com",
+                    Password = "pwd1_hashed"
+                };
+                redis.AddItemToList(accessKey, db1.ToJson());
+                
+                var db2 = new UserDbConnection
+                {
+                    Owner = name,
+                    Host = "Host2@host2.com",
+                    Password = "pwd2_hashed"
+                };
+                redis.AddItemToList(accessKey, db2.ToJson());
+
+                var db3 = new UserDbConnection
+                {
+                    Owner = name,
+                    Host = "Host3@host3.com",
+                    Password = "pwd3_hashed"
+                };
+                redis.AddItemToList(accessKey, db3.ToJson());
+
+                return Json("OK");
+            }
+        }
+
+        private class UserDbConnection
+        {
+            public string Owner { get; set; }
+            public string Host { get; set; }
+            public string Password { get; set; }
+        }
+
         private static (IEnumerable<string> names, IEnumerable<IEnumerable<string>> rows) ConvertToTableCollection(IDataReader reader)
         {
             var rows = new List<IEnumerable<string>>(10);
