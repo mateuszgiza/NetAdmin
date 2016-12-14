@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -93,8 +94,8 @@ namespace NetAdmin.Auth
 
         private bool CheckCredentials(string username, string password)
         {
-            var userExists = username.Equals("admin", StringComparison.OrdinalIgnoreCase);
-            var correctPassword = password.Equals("admin", StringComparison.OrdinalIgnoreCase);
+            var userExists = username?.Equals("admin", StringComparison.OrdinalIgnoreCase) ?? false;
+            var correctPassword = password?.Equals("admin", StringComparison.OrdinalIgnoreCase) ?? false;
 
             return userExists && correctPassword;
         }

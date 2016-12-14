@@ -36,6 +36,7 @@ namespace NetAdmin.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             //services.AddApplicationInsightsTelemetry(Configuration);
+            services.AddCors();
             services.AddMemoryCache();
             services.AddMvc();
 
@@ -68,6 +69,14 @@ namespace NetAdmin.Web
             }
 
             //app.UseApplicationInsightsExceptionTelemetry();
+            app.UseCors(builder =>
+            {
+                builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+            });
+
             app.UseJwtMiddleware();
             app.AddJwtCookieAuthentication();
 

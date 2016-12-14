@@ -37,6 +37,14 @@
             "type": "coreclr",
             "request": "attach",
             "processId": "${command.pickProcess}"
+        },
+        {
+            "name": "Launch localhost with sourcemaps",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:3000/",
+            "sourceMaps": true,
+            "webRoot": "."
         }
     ]
 }
