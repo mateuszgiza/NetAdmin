@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,14 +9,12 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using NetAdmin.Application;
 using NetAdmin.Auth;
-using ServiceStack.Redis;
+using NetAdmin.DataAccess;
 
 namespace NetAdmin.Web
 {
     public class Startup
     {
-        private const string RedisConnectionString = "localhost:6379";
-
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -43,12 +42,16 @@ namespace NetAdmin.Web
             services.AddMemoryCache();
             services.AddMvc();
 
+            //services.AddOptions();
+            //services.Configure<T>(Configuration.GetSection("Section"));
+
+            // TODO: Remove direct reference to DataAccess layer and access this extension through another abstraction layer
+            services.SetupDbContext(Configuration, GetType().GetTypeInfo().Assembly);
+
             var builder = new ContainerBuilder();
             builder.RegisterType<CommandService>().As<ICommandService>();
             builder.RegisterType<DatabaseRepository>().AsSelf();
-
-            builder.Register<IRedisClientsManager>(c => new RedisManagerPool(RedisConnectionString));
-
+            
             builder.Populate(services);
             ApplicationContainer = builder.Build();
 

@@ -11,8 +11,14 @@
     <PackageReference Include="Autofac">
       <Version>4.2.1</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions">
+    <PackageReference Include="Microsoft.EntityFrameworkCore">
       <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer">
+      <Version>1.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+      <Version>1.1.0-preview4-final</Version>
     </PackageReference>
     <PackageReference Include="NETStandard.Library">
       <Version>1.6.1</Version>
@@ -21,15 +27,6 @@
       <Version>1.0.0-alpha-20161104-2</Version>
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="System.Data.SqlClient">
-      <Version>4.3.0</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\NetAdmin.Business\NetAdmin.Business.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Options\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
