@@ -46,7 +46,7 @@ namespace NetAdmin.Web
             //services.Configure<T>(Configuration.GetSection("Section"));
 
             // TODO: Remove direct reference to DataAccess layer and access this extension through another abstraction layer
-            services.SetupDbContext(Configuration, GetType().GetTypeInfo().Assembly);
+            services.SetupDbContext(Configuration);
 
             var builder = new ContainerBuilder();
             builder.RegisterType<CommandService>().As<ICommandService>();

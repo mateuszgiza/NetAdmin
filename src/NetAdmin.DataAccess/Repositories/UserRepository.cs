@@ -24,17 +24,17 @@ namespace NetAdmin.DataAccess
 
         public void Update(User entity)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public void Delete(User entity)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public User GetById(long id)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

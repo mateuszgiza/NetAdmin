@@ -6,6 +6,5 @@
         public string Username { get; set; }
         public byte[] Password { get; set; }
         public byte[] Salt { get; set; }
-        public byte[] Hash { get; set; }
     }
 }
