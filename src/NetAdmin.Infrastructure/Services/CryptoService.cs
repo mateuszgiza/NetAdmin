@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 
-namespace NetAdmin.Infrastructure.Services
+namespace NetAdmin.Infrastructure
 {
     public class CryptoService : ICryptoService
     {

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +10,8 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using NetAdmin.Application;
 using NetAdmin.Auth;
+using NetAdmin.DataAccess;
+using NetAdmin.Infrastructure;
 
 namespace NetAdmin.Web
 {
@@ -45,11 +49,22 @@ namespace NetAdmin.Web
 
             // TODO: Remove direct reference to DataAccess layer and access this extension through another abstraction layer
             services.SetupApplication(Configuration);
-
+            
             var builder = new ContainerBuilder();
             builder.RegisterType<CommandService>().As<ICommandService>();
             builder.RegisterType<DatabaseRepository>().AsSelf();
-            
+
+            var assemblyNames = new[]
+            {
+                "NetAdmin.Infrastructure",
+                "NetAdmin.DataAccess",
+                "NetAdmin.Application"
+            };
+            var assemblies = assemblyNames.Select(a => Assembly.Load(new AssemblyName(a))).ToArray();
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(x => x.IsAssignableTo<IService>() || x.IsAssignableTo<IRepository>())
+                .AsImplementedInterfaces();
+
             builder.Populate(services);
             ApplicationContainer = builder.Build();
 
