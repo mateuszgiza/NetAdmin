@@ -8,6 +8,9 @@
     <EmbeddedResource Include="**\*.resx" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac">
+      <Version>4.2.1</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Authentication">
       <Version>1.1.0</Version>
     </PackageReference>
@@ -42,6 +45,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Policies\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetAdmin.Application\NetAdmin.Application.csproj" />
+    <ProjectReference Include="..\NetAdmin.Business\NetAdmin.Business.csproj" />
+    <ProjectReference Include="..\NetAdmin.DataAccess\NetAdmin.DataAccess.csproj" />
+    <ProjectReference Include="..\NetAdmin.Infrastructure\NetAdmin.Infrastructure.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

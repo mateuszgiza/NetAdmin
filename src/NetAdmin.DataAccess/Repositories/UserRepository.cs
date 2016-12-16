@@ -36,5 +36,10 @@ namespace NetAdmin.DataAccess
         {
             throw new NotImplementedException();
         }
+
+        public User GetByName(string name)
+        {
+            return _db.Users.FirstOrDefault(u => u.Username.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
     }
 }

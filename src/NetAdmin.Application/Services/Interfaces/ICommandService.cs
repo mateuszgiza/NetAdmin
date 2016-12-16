@@ -1,13 +1,9 @@
-﻿using System.Threading.Tasks;
-using NetAdmin.Infrastructure;
+﻿using NetAdmin.Infrastructure;
 
 namespace NetAdmin.Application
 {
-    public interface ICommandService
+    public interface ICommandService : IService
     {
-        Task<DatabaseListResponse> GetDatabasesAsync(ConnectionInfo connectionInfo);
-        Task<TableListResponse> GetTablesAsync(ConnectionInfo connectionInfo);
-
         DatabaseList GetDatabases(ConnectionInfo connection);
         TableList GetTables(ConnectionInfo connection, string database);
     }

@@ -1,24 +1,24 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using NetAdmin.DataAccess;
+using NetAdmin.Application;
 
 namespace NetAdmin.Web.Controllers
 {
     public class UsersController : Controller
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserService _userService;
 
-        public UsersController(IUserRepository userRepository)
+        public UsersController(IUserService userService)
         {
-            _userRepository = userRepository;
+            _userService = userService;
         }
 
         [HttpPost]
-        public JsonResult Add([FromBody] User user)
+        public JsonResult Add([FromBody] CreateUserRequest request)
         {
             try
             {
-                _userRepository.Add(user);
+                _userService.Register(request);
             }
             catch (Exception ex)
             {

@@ -3,22 +3,24 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using NetAdmin.Application;
 
 namespace NetAdmin.Auth
 {
     public class TokenProviderMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly IUserService _userService;
         private readonly TokenProviderOptions _options;
 
-        public TokenProviderMiddleware(RequestDelegate next, IOptions<TokenProviderOptions> options)
+        public TokenProviderMiddleware(RequestDelegate next, IOptions<TokenProviderOptions> options, IUserService userService)
         {
             _next = next;
+            _userService = userService;
             _options = options.Value;
         }
 
@@ -94,10 +96,15 @@ namespace NetAdmin.Auth
 
         private bool CheckCredentials(string username, string password)
         {
-            var userExists = username?.Equals("admin", StringComparison.OrdinalIgnoreCase) ?? false;
-            var correctPassword = password?.Equals("admin", StringComparison.OrdinalIgnoreCase) ?? false;
+            var loginRequest = new UserLoginRequest
+            {
+                Username = username,
+                Password = password
+            };
 
-            return userExists && correctPassword;
+            var loginResponse = _userService.SignIn(loginRequest);
+
+            return loginResponse.Successfull;
         }
     }
 }

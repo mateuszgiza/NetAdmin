@@ -2,7 +2,7 @@
 
 namespace NetAdmin.DataAccess
 {
-    internal class RepositoriesModule : Module
+    public class RepositoriesModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {

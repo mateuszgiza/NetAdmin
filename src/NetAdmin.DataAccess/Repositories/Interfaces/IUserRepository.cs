@@ -6,6 +6,6 @@
         IDeletable<User>,
         IObtainable<User>
     {
-
+        User GetByName(string name);
     }
 }
