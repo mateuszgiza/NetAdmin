@@ -54,6 +54,7 @@ namespace NetAdmin.Web
             builder.RegisterType<CommandService>().As<ICommandService>();
             builder.RegisterType<DatabaseRepository>().AsSelf();
 
+            // TODO: For now Autofac is not injecting services into constructors for Middlewares!
             var assemblyNames = new[]
             {
                 "NetAdmin.Infrastructure",
@@ -88,7 +89,7 @@ namespace NetAdmin.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            
             //app.UseApplicationInsightsExceptionTelemetry();
             app.UseCors(builder =>
             {
