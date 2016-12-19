@@ -10,6 +10,10 @@
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
+!**/src/NetAdmin.Log/
+**/src/NetAdmin.Log/[Bb]in/
+**/src/NetAdmin.Log/[Oo]bj/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
