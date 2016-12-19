@@ -1,13 +1,18 @@
 ﻿using System;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NetAdmin.Application;
 
 namespace NetAdmin.Web.Controllers
 {
+    [Authorize]
     public class ConnectionsController : Controller
     {
-        public ConnectionsController()
-        {
+        private readonly IConnectionService _connectionService;
 
+        public ConnectionsController(IConnectionService connectionService)
+        {
+            _connectionService = connectionService;
         }
 
         public JsonResult Get()
@@ -23,7 +28,8 @@ namespace NetAdmin.Web.Controllers
         [HttpPost]
         public JsonResult Add([FromBody] ConnectionAddRequest request)
         {
-            throw new NotImplementedException();
+            _connectionService.AddConnection(request);
+            return Json("OK");
         }
 
         public JsonResult Update()
@@ -31,19 +37,9 @@ namespace NetAdmin.Web.Controllers
             throw new NotImplementedException();
         }
 
-        public JsonResult Delete([FromBody] ConnectionDeleteRequest request)
+        public JsonResult Delete([FromBody] int id)
         {
             throw new NotImplementedException();
         }
-    }
-
-    public class ConnectionAddRequest
-    {
-        public UserDbConnection Connection { get; set; }
-    }
-
-    public class ConnectionDeleteRequest
-    {
-        public string Id { get; set; }
     }
 }

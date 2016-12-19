@@ -8,9 +8,10 @@ using NetAdmin.DataAccess;
 namespace NetAdmin.DataAccess.Migrations
 {
     [DbContext(typeof(NetAdminDbContext))]
-    partial class NetAdminDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161219094757_add_dbConnections")]
+    partial class add_dbConnections
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")

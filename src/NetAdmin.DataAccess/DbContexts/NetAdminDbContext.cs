@@ -10,5 +10,6 @@ namespace NetAdmin.DataAccess
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<DbConnection> DbConnections { get; set; }
     }
 }

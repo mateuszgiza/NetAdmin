@@ -20,6 +20,7 @@ namespace NetAdmin.DataAccess
             }
 
             _db.Users.Add(entity);
+            _db.SaveChanges();
         }
 
         public void Update(User entity)
