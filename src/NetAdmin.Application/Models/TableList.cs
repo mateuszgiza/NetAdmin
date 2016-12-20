@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using NetAdmin.Common.Abstractions;
 
 namespace NetAdmin.Application
 {

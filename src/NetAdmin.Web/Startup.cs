@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NetAdmin.Application;
 using NetAdmin.Auth;
+using NetAdmin.Common.Abstractions;
 
 namespace NetAdmin.Web
 {
@@ -57,7 +58,8 @@ namespace NetAdmin.Web
             {
                 "NetAdmin.Infrastructure",
                 "NetAdmin.DataAccess",
-                "NetAdmin.Application"
+                "NetAdmin.Application",
+                "NetAdmin.Log"
             };
             var assemblies = assemblyNames.Select(a => Assembly.Load(new AssemblyName(a))).ToArray();
             builder.RegisterAssemblyTypes(assemblies)

@@ -11,5 +11,10 @@ namespace NetAdmin.Log
 
         [Obsolete("Not implemented yet!")]
         protected string MachineName => null;
+
+        public LoggerBase(ILogRepository logRepository)
+        {
+            LogRepository = logRepository;
+        }
     }
 }

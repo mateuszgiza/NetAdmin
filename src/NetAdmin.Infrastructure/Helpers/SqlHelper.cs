@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using NetAdmin.Common.Abstractions;
 
 namespace NetAdmin.Infrastructure
 {

@@ -32,8 +32,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\NetAdmin.Application\NetAdmin.Application.csproj" />
     <ProjectReference Include="..\..\src\NetAdmin.Business\NetAdmin.Business.csproj" />
+    <ProjectReference Include="..\..\src\NetAdmin.Common.Abstractions\NetAdmin.Common.Abstractions.csproj" />
     <ProjectReference Include="..\..\src\NetAdmin.DataAccess\NetAdmin.DataAccess.csproj" />
     <ProjectReference Include="..\..\src\NetAdmin.Infrastructure\NetAdmin.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\NetAdmin.Log\NetAdmin.Log.csproj" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

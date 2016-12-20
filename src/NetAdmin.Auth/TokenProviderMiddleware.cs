@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using NetAdmin.Application;
+using NetAdmin.Log;
 using Newtonsoft.Json;
 
 namespace NetAdmin.Auth
@@ -16,12 +17,14 @@ namespace NetAdmin.Auth
         private readonly RequestDelegate _next;
         private readonly TokenProviderOptions _options;
         private readonly IUserService _userService;
+        private readonly ILogger _logger;
 
         public TokenProviderMiddleware(RequestDelegate next, IOptions<TokenProviderOptions> options,
-            IUserService userService)
+            IUserService userService, ILogger logger)
         {
             _next = next;
             _userService = userService;
+            _logger = logger;
             _options = options.Value;
         }
 
@@ -32,6 +35,8 @@ namespace NetAdmin.Auth
 
             if (context.Request.IsCorrectTokenRequest())
                 return GenerateTokenAsync(context);
+
+            _logger.Warning("Bad request when authenticating!");
 
             context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
             return context.Response.WriteAsync("Bad Request!");

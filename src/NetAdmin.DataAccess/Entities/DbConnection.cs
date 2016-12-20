@@ -1,6 +1,8 @@
-﻿namespace NetAdmin.DataAccess
+﻿using NetAdmin.Common.Abstractions;
+
+namespace NetAdmin.DataAccess
 {
-    public class DbConnection : IEntity
+    public class DbConnection : IEntity<long>
     {
         public long Id { get; set; }
 

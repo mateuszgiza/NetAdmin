@@ -1,4 +1,6 @@
-﻿namespace NetAdmin.DataAccess
+﻿using NetAdmin.Common.Abstractions;
+
+namespace NetAdmin.DataAccess
 {
     public interface IUserRepository :
         IInsertable<User>,

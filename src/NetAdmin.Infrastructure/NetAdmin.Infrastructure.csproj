@@ -31,5 +31,8 @@
   <ItemGroup>
     <Folder Include="Options\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NetAdmin.Common.Abstractions\NetAdmin.Common.Abstractions.csproj" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

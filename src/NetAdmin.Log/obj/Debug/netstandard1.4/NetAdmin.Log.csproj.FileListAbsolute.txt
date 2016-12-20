@@ -1,3 +1,11 @@
 C:\GIT\MY\NetAdmin\src\NetAdmin.Log\bin\Debug\netstandard1.4\NetAdmin.Log.dll
 C:\GIT\MY\NetAdmin\src\NetAdmin.Log\obj\Debug\netstandard1.4\NetAdmin.Log.csprojResolveAssemblyReference.cache
 C:\GIT\MY\NetAdmin\src\NetAdmin.Log\obj\Debug\netstandard1.4\NetAdmin.Log.AssemblyInfo.cs
+C:\git\NetAdmin\src\NetAdmin.Log\bin\Debug\netstandard1.4\NetAdmin.Log.dll
+C:\git\NetAdmin\src\NetAdmin.Log\bin\Debug\netstandard1.4\NetAdmin.Log.pdb
+C:\git\NetAdmin\src\NetAdmin.Log\obj\Debug\netstandard1.4\NetAdmin.Log.AssemblyInfo.cs
+C:\git\NetAdmin\src\NetAdmin.Log\obj\Debug\netstandard1.4\NetAdmin.Log.dll
+C:\git\NetAdmin\src\NetAdmin.Log\obj\Debug\netstandard1.4\NetAdmin.Log.pdb
+C:\git\NetAdmin\src\NetAdmin.Log\bin\Debug\netstandard1.4\NetAdmin.Common.Abstractions.dll
+C:\git\NetAdmin\src\NetAdmin.Log\bin\Debug\netstandard1.4\NetAdmin.Common.Abstractions.pdb
+C:\git\NetAdmin\src\NetAdmin.Log\obj\Debug\netstandard1.4\NetAdmin.Log.csprojResolveAssemblyReference.cache

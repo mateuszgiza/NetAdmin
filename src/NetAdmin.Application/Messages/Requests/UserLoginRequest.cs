@@ -1,4 +1,6 @@
-﻿namespace NetAdmin.Application
+﻿using NetAdmin.Common.Abstractions;
+
+namespace NetAdmin.Application
 {
     public class UserLoginRequest : IRequest
     {

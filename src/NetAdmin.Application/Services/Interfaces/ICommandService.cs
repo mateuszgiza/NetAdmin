@@ -1,4 +1,5 @@
 ﻿using NetAdmin.Infrastructure;
+using NetAdmin.Common.Abstractions;
 
 namespace NetAdmin.Application
 {

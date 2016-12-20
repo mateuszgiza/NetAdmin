@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using NetAdmin.Common.Abstractions;
 
 namespace NetAdmin.DataAccess
 {
-    public sealed class User : IEntity
+    public sealed class User : IEntity<long>
     {
         public User()
         {

@@ -4,32 +4,40 @@ namespace NetAdmin.Log
 {
     internal class StandardLogger : LoggerBase, ILogger
     {
-        public void Log(string message)
+        public StandardLogger(ILogRepository logRepository)
+            : base(logRepository)
         {
-            var log = new Log();
-
-            throw new NotImplementedException();
         }
-
+        
         public void Info(string message)
         {
-            var info = new Info();
+            var info = new Info
+            {
+                Message = message
+            };
 
-            throw new NotImplementedException();
+            LogRepository.Add(info);
         }
 
         public void Warning(string message)
         {
-            var warning = new Warning();
+            var warning = new Warning
+            {
+                Message = message
+            };
 
-            throw new NotImplementedException();
+            LogRepository.Add(warning);
         }
 
-        public void Error(string message)
+        public void Error(string message, Exception exception)
         {
-            var error = new Error();
+            var error = new Error()
+            {
+                Message = message,
+                Exception = exception
+            };
 
-            throw new NotImplementedException();
+            LogRepository.Add(error);
         }
     }
 }

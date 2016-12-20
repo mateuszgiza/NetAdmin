@@ -1,10 +1,12 @@
-﻿namespace NetAdmin.Log
+﻿using System;
+using NetAdmin.Common.Abstractions;
+
+namespace NetAdmin.Log
 {
-    public interface ILogger
+    public interface ILogger : IService
     {
-        void Log(string message);
         void Info(string message);
         void Warning(string message);
-        void Error(string message);
+        void Error(string message, Exception exception);
     }
 }

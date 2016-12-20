@@ -27,8 +27,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NetAdmin.Business\NetAdmin.Business.csproj" />
+    <ProjectReference Include="..\NetAdmin.Common.Abstractions\NetAdmin.Common.Abstractions.csproj" />
     <ProjectReference Include="..\NetAdmin.DataAccess\NetAdmin.DataAccess.csproj" />
     <ProjectReference Include="..\NetAdmin.Infrastructure\NetAdmin.Infrastructure.csproj" />
+    <ProjectReference Include="..\NetAdmin.Log\NetAdmin.Log.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configurations\Modules\" />

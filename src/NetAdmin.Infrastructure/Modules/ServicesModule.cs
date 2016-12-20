@@ -1,4 +1,5 @@
 using Autofac;
+using NetAdmin.Common.Abstractions;
 
 namespace NetAdmin.Infrastructure
 {
