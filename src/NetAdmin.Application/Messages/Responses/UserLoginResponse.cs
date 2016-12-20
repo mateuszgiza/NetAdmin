@@ -1,6 +1,4 @@
-﻿using NetAdmin.Infrastructure;
-
-namespace NetAdmin.Application
+﻿namespace NetAdmin.Application
 {
     public class UserLoginResponse : IResponse
     {

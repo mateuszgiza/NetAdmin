@@ -20,7 +20,7 @@ namespace NetAdmin.Auth
 
         public static long ToUnixTimeSeconds(this DateTime dateTime)
         {
-            return ToUnixTimeSeconds((DateTimeOffset)DateTime.SpecifyKind(dateTime, DateTimeKind.Utc));
+            return ToUnixTimeSeconds((DateTimeOffset) DateTime.SpecifyKind(dateTime, DateTimeKind.Utc));
         }
     }
 }

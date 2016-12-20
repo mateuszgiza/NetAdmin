@@ -7,15 +7,19 @@ namespace NetAdmin.Infrastructure
     public static class SqlHelper
     {
         #region - Constants -
+
         private const string ConnectionFormat = "Data Source={0};Initial Catalog={3};User ID={1};Password={2};";
+
         #endregion
 
-        public static Task<TResponse> DoCommandOperationAsync<TResponse>(ConnectionInfo connectionInfo, string query, Action<TResponse, SqlDataReader> operation) where TResponse : BaseResponse, new()
+        public static Task<TResponse> DoCommandOperationAsync<TResponse>(ConnectionInfo connectionInfo, string query,
+            Action<TResponse, SqlDataReader> operation) where TResponse : BaseResponse, new()
         {
             return Task.FromResult(DoCommandOperation(connectionInfo, query, operation));
         }
 
-        public static TResponse DoCommandOperation<TResponse>(ConnectionInfo connectionInfo, string query, Action<TResponse, SqlDataReader> operation) where TResponse : BaseResponse, new()
+        public static TResponse DoCommandOperation<TResponse>(ConnectionInfo connectionInfo, string query,
+            Action<TResponse, SqlDataReader> operation) where TResponse : BaseResponse, new()
         {
             var response = new TResponse();
 
@@ -35,12 +39,12 @@ namespace NetAdmin.Infrastructure
                     }
                 }
             }
-            catch(SqlException e)
+            catch (SqlException e)
             {
                 response.Message = e.Message;
                 response.State = ResponseState.Error;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 response.Message = e.ToString();
                 response.State = ResponseState.Error;
@@ -49,8 +53,9 @@ namespace NetAdmin.Infrastructure
             return response;
         }
 
-        public static TResponse DoQueryOperation<TRequest, TResponse>(TRequest request, Action<TRequest, TResponse, SqlDataReader> operation) 
-            where TRequest : class, IDbRequest 
+        public static TResponse DoQueryOperation<TRequest, TResponse>(TRequest request,
+            Action<TRequest, TResponse, SqlDataReader> operation)
+            where TRequest : class, IDbRequest
             where TResponse : IResponse, new()
         {
             var response = new TResponse();
@@ -88,6 +93,7 @@ namespace NetAdmin.Infrastructure
         }
 
         #region - Private methods -
+
         private static string GetConnectionString(ConnectionInfo connectionInfo)
         {
             var connectionString = string.Format(ConnectionFormat,
@@ -95,6 +101,7 @@ namespace NetAdmin.Infrastructure
 
             return connectionString;
         }
+
         #endregion
     }
 }

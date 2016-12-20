@@ -12,12 +12,15 @@ namespace NetAdmin.DataAccess
             _db = context;
         }
 
+        public User GetByName(string name)
+        {
+            return _db.Users.FirstOrDefault(u => u.Username.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
         public void Add(User entity)
         {
             if (_db.Users.Any(u => u.Username.Equals(entity.Username, StringComparison.OrdinalIgnoreCase)))
-            {
                 throw new ArgumentNullException(nameof(entity), "Username was already taken!");
-            }
 
             _db.Users.Add(entity);
             _db.SaveChanges();
@@ -36,11 +39,6 @@ namespace NetAdmin.DataAccess
         public User GetById(long id)
         {
             throw new NotImplementedException();
-        }
-
-        public User GetByName(string name)
-        {
-            return _db.Users.FirstOrDefault(u => u.Username.Equals(name, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

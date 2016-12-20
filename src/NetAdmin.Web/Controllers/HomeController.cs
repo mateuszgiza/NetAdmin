@@ -8,12 +8,12 @@ namespace NetAdmin.Web
         [Authorize]
         public IActionResult Index()
         {
-            return new JsonResult(new { scope = "Index", text = "Elo xD" });
+            return new JsonResult(new {scope = "Index", text = "Elo xD"});
         }
 
         public IActionResult About()
         {
-            return new JsonResult(new { scope = "About", text = "Elo xD" });
+            return new JsonResult(new {scope = "About", text = "Elo xD"});
         }
 
         public IActionResult Contact()

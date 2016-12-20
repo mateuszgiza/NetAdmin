@@ -19,7 +19,7 @@ namespace NetAdmin.Application
                 Port = request.Port,
                 Username = request.Username,
                 Password = request.Password,
-                User = new User { Id = request.UserId }
+                User = new User {Id = request.UserId}
             };
 
             _connectionRepository.Add(dbConnection);

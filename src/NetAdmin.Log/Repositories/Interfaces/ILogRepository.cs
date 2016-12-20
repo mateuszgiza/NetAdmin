@@ -1,7 +1,6 @@
-﻿namespace NetAdmin.Log.Repositories
+﻿namespace NetAdmin.Log
 {
     public interface ILogRepository
     {
-        
     }
 }

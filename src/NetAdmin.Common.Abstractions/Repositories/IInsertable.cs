@@ -1,4 +1,4 @@
-﻿namespace NetAdmin.DataAccess
+﻿namespace NetAdmin.Common.Abstractions
 {
     public interface IInsertable<in TEntity> : IRepository
     {

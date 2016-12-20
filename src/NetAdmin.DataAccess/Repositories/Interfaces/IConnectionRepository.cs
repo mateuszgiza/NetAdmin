@@ -2,7 +2,7 @@
 
 namespace NetAdmin.DataAccess
 {
-    public interface IConnectionRepository : 
+    public interface IConnectionRepository :
         IInsertable<DbConnection>,
         IUpdatable<DbConnection>,
         IObtainable<DbConnection>,

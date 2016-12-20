@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.Caching.Memory;
-using NetAdmin.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Caching.Memory;
+using NetAdmin.Infrastructure;
 
 namespace NetAdmin.Application
 {
@@ -23,7 +23,7 @@ namespace NetAdmin.Application
                 CommandText = query
             };
 
-            return SqlHelper.DoQueryOperation<CommonDbRequest, DatabaseList>(dbRequest, (req, response, reader) => 
+            return SqlHelper.DoQueryOperation<CommonDbRequest, DatabaseList>(dbRequest, (req, response, reader) =>
             {
                 var databaseList = new List<string>();
 
@@ -52,7 +52,7 @@ namespace NetAdmin.Application
             {
                 var tableList = new List<string>();
 
-                while(reader.Read())
+                while (reader.Read())
                 {
                     var name = reader.GetValue(0).ToString();
                     tableList.Add(name);
@@ -65,7 +65,7 @@ namespace NetAdmin.Application
         private ConnectionInfo ResolveConnectionWithCache(ConnectionInfo connection)
         {
             const string cacheKeyName = "connection";
-            
+
             return _memoryCache.GetOrCreate(cacheKeyName, entry =>
             {
                 entry.SlidingExpiration = TimeSpan.FromMinutes(30);

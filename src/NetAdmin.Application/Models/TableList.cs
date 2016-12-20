@@ -1,5 +1,4 @@
-﻿using NetAdmin.Infrastructure;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace NetAdmin.Application
 {

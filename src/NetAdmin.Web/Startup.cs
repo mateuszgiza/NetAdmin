@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Autofac;
-using Autofac.Extensions.DependencyInjection;
 using NetAdmin.Application;
 using NetAdmin.Auth;
-using NetAdmin.DataAccess;
-using NetAdmin.Infrastructure;
 
 namespace NetAdmin.Web
 {
@@ -21,8 +19,8 @@ namespace NetAdmin.Web
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("appsettings.json", true, true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
@@ -49,7 +47,7 @@ namespace NetAdmin.Web
 
             // TODO: Remove direct reference to DataAccess layer and access this extension through another abstraction layer
             services.SetupApplication(Configuration);
-            
+
             var builder = new ContainerBuilder();
             builder.RegisterType<CommandService>().As<ICommandService>();
             builder.RegisterType<DatabaseRepository>().AsSelf();
@@ -73,13 +71,14 @@ namespace NetAdmin.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+            IApplicationLifetime appLifetime)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             //app.UseApplicationInsightsRequestTelemetry();
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -89,7 +88,7 @@ namespace NetAdmin.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            
+
             //app.UseApplicationInsightsExceptionTelemetry();
             app.UseCors(builder =>
             {
@@ -106,8 +105,8 @@ namespace NetAdmin.Web
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    "default",
+                    "{controller=Home}/{action=Index}/{id?}");
             });
 
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());

@@ -1,23 +1,24 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using NetAdmin.Application;
+using Newtonsoft.Json;
 
 namespace NetAdmin.Auth
 {
     public class TokenProviderMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly IUserService _userService;
         private readonly TokenProviderOptions _options;
+        private readonly IUserService _userService;
 
-        public TokenProviderMiddleware(RequestDelegate next, IOptions<TokenProviderOptions> options, IUserService userService)
+        public TokenProviderMiddleware(RequestDelegate next, IOptions<TokenProviderOptions> options,
+            IUserService userService)
         {
             _next = next;
             _userService = userService;
@@ -27,14 +28,10 @@ namespace NetAdmin.Auth
         public Task Invoke(HttpContext context)
         {
             if (!context.Request.IsCorrectTokenPath(_options))
-            {
                 return _next(context);
-            }
 
             if (context.Request.IsCorrectTokenRequest())
-            {
                 return GenerateTokenAsync(context);
-            }
 
             context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
             return context.Response.WriteAsync("Bad Request!");
@@ -62,33 +59,31 @@ namespace NetAdmin.Auth
             };
 
             var jwt = new JwtSecurityToken(
-                issuer: _options.Issuer,
-                audience: _options.Audience,
-                claims: claims,
-                notBefore: now,
-                expires: now.Add(_options.Expiration),
-                signingCredentials: _options.SigningCredentials);
+                _options.Issuer,
+                _options.Audience,
+                claims,
+                now,
+                now.Add(_options.Expiration),
+                _options.SigningCredentials);
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
             var response = new
             {
                 access_token = encodedJwt,
-                expires_in = (int)_options.Expiration.TotalSeconds
+                expires_in = (int) _options.Expiration.TotalSeconds
             };
 
             context.Response.ContentType = "application/json";
-            var jsonSettings = new JsonSerializerSettings { Formatting = Formatting.Indented };
+            var jsonSettings = new JsonSerializerSettings {Formatting = Formatting.Indented};
             await context.Response.WriteAsync(JsonConvert.SerializeObject(response, jsonSettings));
         }
 
         private Task<ClaimsIdentity> GetIdentity(string username, string password)
         {
             if (CheckCredentials(username, password) == false)
-            {
                 return Task.FromResult<ClaimsIdentity>(null);
-            }
 
-            var emptyClaims = new Claim[] { };
+            var emptyClaims = new Claim[] {};
             var genericIdentity = new GenericIdentity(username, "Token");
 
             return Task.FromResult(new ClaimsIdentity(genericIdentity, emptyClaims));

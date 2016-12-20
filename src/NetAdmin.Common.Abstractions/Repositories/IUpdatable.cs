@@ -1,4 +1,4 @@
-﻿namespace NetAdmin.DataAccess
+﻿namespace NetAdmin.Common.Abstractions
 {
     public interface IUpdatable<in TEntity> : IRepository
     {

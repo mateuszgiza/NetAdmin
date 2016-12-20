@@ -10,17 +10,17 @@ namespace NetAdmin.Application
         {
             _databaseRepository = databaseRepository;
         }
-        
+
         public DatabaseList GetDatabases(ConnectionInfo connection)
         {
-            var request = new GetDatabasesRequest { Connection = connection };
+            var request = new GetDatabasesRequest {Connection = connection};
             var response = _databaseRepository.GetDatabaseList(request);
             return response;
         }
 
         public TableList GetTables(ConnectionInfo connection, string database)
         {
-            var request = new GetTablesRequest { Connection = connection, Database = database };
+            var request = new GetTablesRequest {Connection = connection, Database = database};
             var response = _databaseRepository.GetTableList(request);
             return response;
         }

@@ -1,14 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
-using NetAdmin.DataAccess;
 
 namespace NetAdmin.DataAccess.Migrations
 {
     [DbContext(typeof(NetAdminDbContext))]
-    partial class NetAdminDbContextModelSnapshot : ModelSnapshot
+    internal class NetAdminDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -17,49 +14,49 @@ namespace NetAdmin.DataAccess.Migrations
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("NetAdmin.DataAccess.DbConnection", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<long>("Id")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Host");
+                b.Property<string>("Host");
 
-                    b.Property<string>("Password");
+                b.Property<string>("Password");
 
-                    b.Property<int>("Port");
+                b.Property<int>("Port");
 
-                    b.Property<long?>("UserId");
+                b.Property<long?>("UserId");
 
-                    b.Property<string>("Username");
+                b.Property<string>("Username");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.HasIndex("UserId");
+                b.HasIndex("UserId");
 
-                    b.ToTable("DbConnections");
-                });
+                b.ToTable("DbConnections");
+            });
 
             modelBuilder.Entity("NetAdmin.DataAccess.User", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
+            {
+                b.Property<long>("Id")
+                    .ValueGeneratedOnAdd();
 
-                    b.Property<byte[]>("Password");
+                b.Property<byte[]>("Password");
 
-                    b.Property<byte[]>("Salt");
+                b.Property<byte[]>("Salt");
 
-                    b.Property<string>("Username");
+                b.Property<string>("Username");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Users");
-                });
+                b.ToTable("Users");
+            });
 
             modelBuilder.Entity("NetAdmin.DataAccess.DbConnection", b =>
-                {
-                    b.HasOne("NetAdmin.DataAccess.User", "User")
-                        .WithMany("DbConnections")
-                        .HasForeignKey("UserId");
-                });
+            {
+                b.HasOne("NetAdmin.DataAccess.User", "User")
+                    .WithMany("DbConnections")
+                    .HasForeignKey("UserId");
+            });
         }
     }
 }

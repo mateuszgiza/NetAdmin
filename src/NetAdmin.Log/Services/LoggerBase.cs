@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Reflection;
-using NetAdmin.Log.Repositories.Interfaces;
 
 namespace NetAdmin.Log
 {

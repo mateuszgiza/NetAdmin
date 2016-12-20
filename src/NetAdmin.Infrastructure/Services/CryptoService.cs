@@ -23,11 +23,11 @@ namespace NetAdmin.Infrastructure
         public byte[] HashPassword(string password, byte[] salt)
         {
             var hash = KeyDerivation.Pbkdf2(
-                password: password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA256,
-                iterationCount: IterationCount,
-                numBytesRequested: Bits / 8);
+                password,
+                salt,
+                KeyDerivationPrf.HMACSHA256,
+                IterationCount,
+                Bits / 8);
 
             return hash;
         }

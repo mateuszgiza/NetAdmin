@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace NetAdmin.DataAccess.Migrations
 {
@@ -9,15 +7,15 @@ namespace NetAdmin.DataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Hash",
-                table: "Users");
+                "Hash",
+                "Users");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<byte[]>(
-                name: "Hash",
-                table: "Users",
+                "Hash",
+                "Users",
                 nullable: true);
         }
     }

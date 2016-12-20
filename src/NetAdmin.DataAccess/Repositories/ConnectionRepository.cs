@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,11 @@ namespace NetAdmin.DataAccess
             _db = context;
         }
 
+        public IEnumerable<DbConnection> GetByUserId(long userId)
+        {
+            return _db.DbConnections.Where(c => c.User.Id == userId);
+        }
+
         public void Add(DbConnection entity)
         {
             _db.DbConnections.Add(entity);
@@ -22,7 +28,7 @@ namespace NetAdmin.DataAccess
 
         public void Update(DbConnection entity)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public DbConnection GetById(long id)
@@ -30,14 +36,9 @@ namespace NetAdmin.DataAccess
             return _db.DbConnections.FirstOrDefault(c => c.Id == id);
         }
 
-        public IEnumerable<DbConnection> GetByUserId(long userId)
-        {
-            return _db.DbConnections.Where(c => c.User.Id == userId);
-        }
-
         public void Delete(DbConnection entity)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace NetAdmin.DataAccess.Migrations
 {
@@ -10,8 +8,8 @@ namespace NetAdmin.DataAccess.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DbConnections",
-                columns: table => new
+                "DbConnections",
+                table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
@@ -25,23 +23,23 @@ namespace NetAdmin.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_DbConnections", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_DbConnections_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
+                        "FK_DbConnections_Users_UserId",
+                        x => x.UserId,
+                        "Users",
+                        "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_DbConnections_UserId",
-                table: "DbConnections",
-                column: "UserId");
+                "IX_DbConnections_UserId",
+                "DbConnections",
+                "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DbConnections");
+                "DbConnections");
         }
     }
 }

@@ -5,8 +5,8 @@ namespace NetAdmin.Application
 {
     public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
         private readonly ICryptoService _cryptoService;
+        private readonly IUserRepository _userRepository;
 
         public UserService(IUserRepository userRepository, ICryptoService cryptoService)
         {

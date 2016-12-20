@@ -6,7 +6,6 @@ namespace NetAdmin.DataAccess
     {
         public NetAdminDbContext(DbContextOptions<NetAdminDbContext> contextOptions) : base(contextOptions)
         {
-            
         }
 
         public DbSet<User> Users { get; set; }

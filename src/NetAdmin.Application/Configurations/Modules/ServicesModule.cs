@@ -1,5 +1,4 @@
 ﻿using Autofac;
-using NetAdmin.Infrastructure;
 
 namespace NetAdmin.Application
 {

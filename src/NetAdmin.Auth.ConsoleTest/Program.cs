@@ -1,11 +1,11 @@
-﻿using IdentityModel.Client;
-using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
 using System.Net.Http;
+using IdentityModel.Client;
+using Newtonsoft.Json.Linq;
 
-class Program
+internal class Program
 {
-    static void Main(string[] args)
+    private static void Main(string[] args)
     {
         Console.WriteLine("Hello World!");
 
@@ -26,10 +26,7 @@ class Program
             Console.WriteLine(tokenResponse.Error);
             return;
         }
-        else
-        {
-            Send(tokenResponse);
-        }
+        Send(tokenResponse);
 
         Console.WriteLine(tokenResponse.Json);
     }

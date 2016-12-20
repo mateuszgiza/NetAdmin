@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http.Authentication;
-using Microsoft.IdentityModel.Tokens;
-using System;
+﻿using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http.Authentication;
+using Microsoft.IdentityModel.Tokens;
 
 namespace NetAdmin.Auth
 {
@@ -17,7 +17,7 @@ namespace NetAdmin.Auth
             _algorithm = algorithm;
             _validationParameters = validationParameters;
         }
-        
+
         public string Protect(AuthenticationTicket data)
         {
             throw new NotImplementedException();
@@ -42,14 +42,10 @@ namespace NetAdmin.Auth
                 var validJwt = validToken as JwtSecurityToken;
 
                 if (validJwt == null)
-                {
                     throw new ArgumentException("Invalid JWT");
-                }
 
                 if (!validJwt.Header.Alg.Equals(_algorithm, StringComparison.Ordinal))
-                {
                     throw new ArgumentException($"Algorithm must be '{_algorithm}");
-                }
 
                 // Additional custom validation of JWT claims here (if any)
             }

@@ -22,14 +22,14 @@ namespace NetAdmin.Web
         public JsonResult GetDatabases([FromBody] ConnectionInfo connection)
         {
             var result = _commandService.GetDatabases(connection);
-            return Json(new { databases = result.Databases });
+            return Json(new {databases = result.Databases});
         }
 
         [HttpPost]
         public JsonResult GetTables([FromBody] ConnectionInfo connection)
         {
             var result = _commandService.GetTables(connection, connection.Database);
-            return Json(new { tables = result.Tables });
+            return Json(new {tables = result.Tables});
         }
 
         [HttpPost]
@@ -37,7 +37,7 @@ namespace NetAdmin.Web
         {
             if (!Request.IsAjaxRequest())
                 return null;
-            
+
             var tableDataResponse = new TableData();
 
             try
@@ -45,7 +45,7 @@ namespace NetAdmin.Web
                 using (var conn = new SqlConnection(""))
                 {
                     var cmd = conn.CreateCommand();
-                    cmd.CommandText = "";// connection.Query;
+                    cmd.CommandText = ""; // connection.Query;
 
                     conn.Open();
 
@@ -61,15 +61,16 @@ namespace NetAdmin.Web
             {
                 tableDataResponse.Error = e.Message;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 tableDataResponse.Error = e.ToString();
             }
 
             return PartialView("Partials/GetTableData", tableDataResponse);
         }
-        
-        private static (IEnumerable<string> names, IEnumerable<IEnumerable<string>> rows) ConvertToTableCollection(IDataReader reader)
+
+        private static (IEnumerable<string> names, IEnumerable<IEnumerable<string>> rows) ConvertToTableCollection(
+            IDataReader reader)
         {
             var rows = new List<IEnumerable<string>>(10);
             var names = ReadFieldNames(reader);
@@ -93,11 +94,9 @@ namespace NetAdmin.Web
         private static IEnumerable<string> ReadFieldNames(IDataRecord reader)
         {
             var names = new List<string>(10);
-            
+
             for (var i = 0; i < reader.FieldCount; i++)
-            {
                 names.Add(reader.GetName(i));
-            }
 
             return names;
         }

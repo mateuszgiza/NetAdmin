@@ -1,6 +1,4 @@
-﻿using NetAdmin.Infrastructure;
-
-namespace NetAdmin.Application
+﻿namespace NetAdmin.Application
 {
     public interface IUserService : IService
     {
